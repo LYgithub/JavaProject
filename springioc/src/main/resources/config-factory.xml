@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <!--配置静态工厂 默认为单例模式-->
+    <bean id="car" class="com.item.factory.StaticCarFactory" factory-method="getCar" scope="prototype">
+        <!--配置参数 getCar -->
+        <constructor-arg index="0" value="2" />
+        <constructor-arg name="s" value="String" />
+    </bean>
+
+    <!--  实例化工厂 -->
+    <bean id="factory" class="com.item.factory.InstanceCarFactory" />
+    <!--  通过工厂 bean 来获取car  -->
+    <bean id="car2" factory-bean="factory" factory-method="getCar">
+        <constructor-arg name="id" value="2" />
+    </bean>
+</beans>
+

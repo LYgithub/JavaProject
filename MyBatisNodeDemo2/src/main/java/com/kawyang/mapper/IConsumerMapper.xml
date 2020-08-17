@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kawyang.repository.IConsumerRepository">
+    <resultMap id="consumer" type="com.kawyang.entity.Consumer" >
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <collection property="goods" ofType="com.kawyang.entity.Good" >
+            <id column="gid" property="id" />
+            <result column="gname" property="name" />
+        </collection>
+    </resultMap>
+
+    <select id="findAll" resultMap="consumer" >
+        select c.id as id,c.name as name,g.id as gid,g.name as gname
+        from Good as g,Consumer as c, Con_good m
+        where c.id = m.cid and g.id=m.gid;
+    </select>
+
+
+    <select id="findById" resultMap="consumer" parameterType="int">
+        select c.id as id,c.name as name,g.id as gid,g.name as gname
+        from Good as g,Consumer as c, Con_good m
+        where c.id = m.cid and g.id=m.gid and g.id=#{id}
+    </select>
+</mapper>

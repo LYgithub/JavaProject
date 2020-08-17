@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kawyang.repository.UserRepository">
+    <select id="findAll" resultType="MyUser">
+        select * from myuser;
+    </select>
+
+    <select id="findById" resultType="MyUser" parameterType="long" >
+        select * from myuser where id=#{id}
+    </select>
+
+    <insert id="insert" parameterType="MyUser" >
+        insert into myuser values (#{id}, #{name}, #{age}, #{birthday})
+    </insert>
+
+    <update id="update" parameterType="MyUser">
+        update myuser set name=#{name}, age=#{age}, birthday=#{birthday} where id=#{id}
+    </update>
+
+    <delete id="deleteById" parameterType="long">
+        delete from myuser where id=#{id}
+    </delete>
+</mapper>

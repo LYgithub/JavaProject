@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <settings>
+        <!--        打印SQL-->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+        <!--  开启延迟加载  -->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!--        &lt;!&ndash;        开启二级缓存&ndash;&gt;-->
+        <setting name="cacheEnabled" value="true"/>
+    </settings>
+
+    <!-- 这里写配置内容 -->
+    <environments default="mysql">
+        <environment id="mysql">
+            <!--           s 事务类型-->
+            <transactionManager type="JDBC"/>
+            <!--            配置数据源-->
+            <dataSource type="POOLED">
+                <!-- 链接信息-->
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="username" value="root"/>
+                <property name="password" value="liyangLY"/>
+                <property name="url" value="jdbc:mysql:///JavaWeb?useSSL=false&amp;allowPublicKeyRetrieval=true"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!--指定映射配置文件的位置，映射配置文件-->
+    <mappers>
+        <!--        使用注解查询-->
+<!--        <mapper class="com.item.repository.IStudent" />-->
+<!--        <mapper resource="com/item/repository/IStudentMapper.xml" />-->
+
+        <mapper resource="com/item/mapper/IClassesMapper.xml" />
+        <mapper resource="com/item/mapper/IStudentMapper.xml" />
+        <mapper resource="com/item/mapper/IGoodMapper.xml" />
+        <mapper resource="com/item/mapper/IConsumerMapper.xml" />
+    </mappers>
+</configuration>

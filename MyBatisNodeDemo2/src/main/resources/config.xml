@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <!--  加载 SQL 信息  -->
+    <properties resource="db.properties" />
+
+    <settings>
+        <!--   打印SQL语句   -->
+        <setting name="logImpl" value="STDOUT_LOGGING" />
+        <!--   开启延迟加载    -->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!--   开启二级缓存    -->
+        <setting name="cacheEnabled" value="true" />
+
+    </settings>
+    <!--  别名设置，放在settings标签之下，environment 标签之前  -->
+    <typeAliases>
+        <typeAlias alias="student" type="com.kawyang.entity.Student"/>
+        <!--   批量别名，扫描包内所有内容，别名为类名(首字母大小写都可以)     -->
+<!--        <package name="com.kawyang.entity"/>-->
+    </typeAliases>
+
+    <!-- 连接配置 -->
+    <environments default="mysql">
+        <environment id="mysql">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+                <property name="url" value="${jdbc.url}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!-- 注册Mapper -->
+
+    <mappers>
+        <mapper class="com.kawyang.repository.IStudentRepository" />
+        <mapper resource="com/kawyang/mapper/IStudentMapper.xml" />
+        <mapper resource="com/kawyang/mapper/IClassesStuMapper.xml" />
+        <mapper resource="com/kawyang/mapper/IConsumerMapper.xml" />
+        <mapper resource="com/kawyang/mapper/IGoodMapper.xml" />
+        <mapper resource="com/kawyang/mapper/IClassesMapper.xml" />
+    </mappers>
+
+
+</configuration>

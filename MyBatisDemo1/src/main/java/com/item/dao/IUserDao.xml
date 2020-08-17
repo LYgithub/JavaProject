@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.item.dao.IUserDao">
+    <select id="findAll" resultType="com.item.domain.User">
+        select * from user
+    </select>
+
+<!--    <insert id="insert" parameterType="com.item.domain.User">-->
+<!--        insert into user values(#{id} , #{username}, #{birthday} , #{sex},#{address})-->
+<!--    </insert>-->
+
+<!--    <update id="update" parameterType="com.item.domain.User">-->
+<!--        update user set username=#{username} where id=#{id}-->
+<!--    </update>-->
+
+<!--    <delete id="deleteByID" parameterType="int">-->
+<!--        delete from user where id=#{id }-->
+<!--    </delete>-->
+<!--q-->
+<!--    <select id="selectByID" parameterType="int" resultType="com.item.domain.User">-->
+<!--        select * from where id=#{id}-->
+<!--    </select>-->
+
+
+<!--    <select id="selectByname" resultType="com.item.domain.User">-->
+<!--        select * from where username=#{username} and id=#{id}-->
+<!--    </select>-->
+<!--    -->
+<!--    -->
+<!--    <resultMap id="student" type="com.item...">-->
+<!--        <id property="id" column="id" />-->
+<!--        <result property="username" column="username"/>-->
+<!--        <association property="classes" javaType="com.cad.classes">-->
+<!--            <id property="id" column="cid"/>-->
+<!--            <result property="usename" column="ac"/>-->
+<!--        </association>-->
+<!--        <collection property="成员变量名" ofType="集合泛型" >-->
+<!--            <id property="id" column="id" />-->
+<!--            <result property="username" column="username"/>-->
+<!--        </collection>-->
+<!--    </resultMap>-->
+
+<!--    <select id="级联查询" resultMap="student" >-->
+<!--        select s.id , s.usename,c.id,c.usename  from student s,class c where s.id = c.id-->
+<!--    </select>-->
+</mapper>

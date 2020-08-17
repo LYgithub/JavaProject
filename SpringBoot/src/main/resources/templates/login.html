@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+</head>
+<body>
+<div>
+    <form method="post" action="/utils/form" >
+
+        <label>
+            <input type="text" th:text="${user.id}" />
+        </label>
+        <input type="text" th:text="${user.name}" />
+        <input type="text" th:text="${user.age}" />
+        <input type="submit" value="提交" >
+    </form>
+    <hr/>
+    <form method="post" action="/utils/form" >
+
+        <input type="text" name="id" id="id" />
+        <input type="text" name="name" id="name"/><p th:text="#{ #}"
+        <input type="text" name="age" id="age"/>
+        <input type="submit" value="提交" >
+
+        <div class="col-sm-3">
+            <input type="text" id="codeName" name="codeName" value="" maxlength="64" class="form-control required" autocomplete="off" aria-required="true" aria-invalid="true">
+            <label id="codeName-error" class="has-error" for="codeName" style="top: 25px; left: 20px;">必填信息</label>
+        </div>
+    </form>
+</div>
+</body>
+</html>

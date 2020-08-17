@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kawyang.repository.IStudentRepository">
+
+
+    <sql id="selectAll" >
+        select * from student
+    </sql>
+
+
+    <resultMap id="student1" type="student">
+        <id property="id" column="sid"/>
+        <result property="name" column="sname" />
+        <association property="classes" javaType="com.kawyang.entity.Classes">
+            <id property="id" column="cid" />
+            <result property="name" column="cname" />
+        </association>
+    </resultMap>
+    <select id="findById" resultMap="student1" parameterType="int">
+        select s.id as sid,s.name as sname, c.id as cid, c.name as cname
+        from student s,classes c
+        where s.cid=c.id and s.id=#{id}
+    </select>
+
+    <select id="findAll" resultMap="student1">
+        select s.id as sid,s.name as sname, c.id as cid, c.name as cname
+        from student s,classes c
+        where s.cid=c.id
+    </select>
+    <!--  动态SQL start  -->
+
+
+<!--    <select id="findByStudent" parameterType="student" resultType="student">-->
+<!--        select * from student where 1=1-->
+<!--        <if test="name != null and name != ''">-->
+<!--            and name like #{name}-->
+<!--        </if>-->
+<!--        <if test="age != -1">-->
+<!--            and age=#{age}-->
+<!--        </if>-->
+<!--    </select>-->
+
+<!--    <select id="findByIds" resultType="com.kawyang.entity.Student" parameterType="com.kawyang.entity.ListIds">-->
+<!--        select * from student-->
+<!--        <where>-->
+<!--            <if test="ids != null and ids.size>0">-->
+<!--                <foreach collection="ids"  open="id in ( " close=")" separator="," item="id" >-->
+<!--                    #{id}-->
+<!--                </foreach>-->
+<!--            </if>-->
+<!--        </where>-->
+<!--    </select>-->
+
+
+    <!-- 动态SQL end  -->
+    <select id="findByStudent" parameterType="com.kawyang.entity.Student" resultType="com.kawyang.entity.Student" >
+--         select * from student
+        <include refid="selectAll"></include>
+        <where>
+            <choose>
+                <when test="id != 0">
+                    id=#{id}
+                </when>
+                <when test="name != null">
+                    name=#{name}
+                </when>
+            </choose>
+        </where>
+    </select>
+
+    <!--  延迟加载start  -->
+    <resultMap id="studentLazy" type="com.kawyang.entity.Student">
+        <id property="id" column="id"/>
+        <result property="name" column="name" />
+        <association property="classes" javaType="com.kawyang.entity.Classes"
+                     select="com.kawyang.repository.IClassRepository.findById"
+                     column="cid">
+        </association>
+    </resultMap>
+
+    <select id="findByIdLazy" resultMap="studentLazy" parameterType="int">
+        select *
+        from student
+        where id=#{id}
+    </select>
+
+    <!--  延迟加载end  -->
+
+</mapper>

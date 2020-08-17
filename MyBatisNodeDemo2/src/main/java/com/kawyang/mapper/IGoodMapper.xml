@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kawyang.repository.IGoodRepository">
+
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache" >
+        <!--   创建缓存之后，对吼一次访问缓存的时间值缓存失效的时间间隔  -->
+        <property name="timeToIdleSeconds" value="3600"/><!--1 hour-->
+        <!--   缓存自创建时间起至失效的时间间隔  -->
+        <property name="timeToLiveSeconds" value="3600"/><!--1 hour-->
+        <!--        -->
+        <property name="maxEntriesLocalHeap" value="1000"/>
+        <property name="maxEntriesLocalDisk" value="10000000"/>
+        <!--   缓存回收策略，移除-近期使用最少的对象 -->
+        <property name="memoryStoreEvictionPolicy" value="LRU"/>
+    </cache>
+
+    <resultMap id="good" type="com.kawyang.entity.Good">
+        <id property="id" column="gid"/>
+        <result property="name" column="gname" />
+        <collection property="consumers" ofType="com.kawyang.entity.Consumer">
+            <id property="id" column="cid" />
+            <result property="name" column="cname" />
+        </collection>
+    </resultMap>
+
+    <select id="findAll" resultMap="good" >
+        select g.id as gid,g.name as gname, c.id as cid, c.name as cname
+        from good g,consumer c,con_good m
+        where g.id=m.gid and m.cid=c.id
+    </select>
+
+    <select id="findById" resultMap="good" parameterType="int">
+        select c.id as cid,c.name as cname,g.id as gid,g.name as gname
+        from Good as g,Consumer as c, Con_good m
+        where c.id = m.cid and g.id=m.gid and g.id=#{id}
+    </select>
+
+    <select id="findGoodById" resultType="com.kawyang.entity.Good" parameterType="int" useCache="true">
+        select * from good where id=#{id}
+    </select>
+</mapper>

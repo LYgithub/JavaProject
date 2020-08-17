@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="classes" class="com.kawyang.model.Classes" >
+        <property name="id" value="1"/>
+        <property name="name" value="一班" />
+    </bean>
+
+
+    <bean id="student" class="com.kawyang.model.Student" >
+        <property name="id" value="1"/>
+        <property name="name" value="KawYang" />
+        <property name="classes" ref="classes" />
+    </bean>
+
+
+    <bean id="student2" class="com.kawyang.model.Student" autowire="byName">
+        <property name="id" value="1"/>
+        <property name="name" value="KawYang" />
+    </bean>
+</beans>

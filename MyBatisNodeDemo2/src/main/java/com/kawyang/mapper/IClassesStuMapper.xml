@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kawyang.repository.IClassesStuRepository">
+    <resultMap id="classesStu" type="com.kawyang.entity.ClassesStu">
+        <id property="id" column="cid" />
+        <result property="name" column="cname" />
+        <collection property="students" ofType="com.kawyang.entity.Student" >
+            <id property="id" column="sid" />
+            <result property="name" column="sname" />
+        </collection>
+    </resultMap>
+
+    <select id="findAll" resultMap="classesStu">
+        select c.id as cid, c.name as cname, s.id as sid, s.name as sname
+        from student s, classes c
+        where c.id=s.cid
+    </select>
+
+    <select id="findById" resultMap="classesStu" parameterType="int">
+        select c.id as cid, c.name as cname, s.id as sid, s.name as sname
+        from student s, classes c
+        where c.id=s.cid and c.id=#{id}
+    </select>
+
+</mapper>

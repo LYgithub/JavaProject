@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+    <bean id="classes" class="com.item.Classes" scope="singleton" >
+        <property name="id" value="1" />
+        <property name="name" value="一班" />
+    </bean>
+    <bean id="cla" class="com.item.Classes" parent="classes" depends-on="student">
+        <property name="id" value="3" />
+    </bean>
+
+
+    <bean id="student" class="com.item.Student" >
+        <property name="id" value="1" />
+        <property name="name" value="张三" />
+        <property name="age" value="12" />
+        <property name="classes" ref="classes" />
+    </bean>
+
+    <bean id="student2" class="com.item.Student" autowire="byName">
+        <property name="id" value="1" />
+        <property name="name" value="张三" />
+        <property name="age" value="12" />
+     </bean>
+
+
+<!--    <bean id="classes2" class="com.item.Classes" >-->
+<!--        <property name="id" value="1" />-->
+<!--        <property name="name" value="一班" />-->
+<!--    </bean>-->
+
+<!--    <bean id="classes3" class="com.item.Classes">-->
+<!--&lt;!&ndash;        <constructor-arg name="id" value="3" />&ndash;&gt;-->
+<!--        <constructor-arg name="name" value="三班" />-->
+<!--&lt;!&ndash;        通过下标调用有参构造函数&ndash;&gt;-->
+<!--        <constructor-arg index="0" value="2" />-->
+<!--    </bean>-->
+
+<!--p命名空间-->
+    <bean id="classes_p" class="com.item.Classes" p:id="1" p:name="adad"/>
+
+    <bean id="student_p" class="com.item.Student" p:id="1" p:name="李四" p:age="12" p:classes-ref="classes_p" />
+</beans>

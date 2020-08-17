@@ -1,0 +1,10 @@
+spring:
+  mvc:
+    view:
+      prefix: /
+      suffix: .jsp
+  datasource:
+    url: jdbc:mysql:///JavaWeb?useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: liyangLY
+    driver-class-name: com.mysql.jdbc.Driver

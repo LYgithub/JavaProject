@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+<!--    defaultModelType必须 MyBatis3-->
+    <context id="testT" targetRuntime="MyBatis3">
+        <!--配置连接信息 通过属性配置 -->
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql:///JavaWeb?useUnicode=true&amp;charactorEncoding=UTF-8"
+                        userId="root"
+                        password="liyangLY"></jdbcConnection>
+        <!-- 实体类配置 -->
+        <javaModelGenerator targetPackage="com.item.entity" targetProject="./src/main/java"></javaModelGenerator>
+        <!-- SQL语句的映射 -->
+        <sqlMapGenerator targetPackage="com.item.repository" targetProject="./src/main/java"></sqlMapGenerator>
+        <!-- Mapper配置策略  xmlmapper-->
+        <javaClientGenerator targetPackage="com.item.repository" targetProject="./src/main/java" type="XMLMAPPER"></javaClientGenerator>
+        <!--实体类的名称 -->
+        <table tableName="user"></table>
+    </context>
+
+</generatorConfiguration>

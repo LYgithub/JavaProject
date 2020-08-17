@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <!-- 打印SQL-->
+        <setting name="logImpl" value="STDOUT_LOGGING" />
+    </settings>
+
+    <typeAliases>
+        <!-- 指定一个包名，MyBatis会在包名下搜索需要的JavaBean-->
+        <package name="com.kawyang.entity"/>
+    </typeAliases>
+
+    <!--  注册分页插件  -->
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <!-- 分页参数合理化 page_number < 1 return 1, page_number > pages return pages -->
+            <!-- 不能-->
+            <property name="reasonable" value="true"/>
+        </plugin>
+    </plugins>
+</configuration>

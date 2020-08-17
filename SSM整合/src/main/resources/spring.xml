@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+">
+
+
+
+    <!--  整合MyBatis  -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="user" value="root" />
+        <property name="password" value="liyangLY" />
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/JavaWeb?useUnicode=true&amp;characterEncoding=UTF-8" />
+        <property name="driverClass" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="initialPoolSize" value="5" />
+        <property name="maxPoolSize" value="10" />
+    </bean>
+    <!--    配置MyBatis SqlSessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="mapperLocations" value="classpath:com/kawyang/repository/*.xml" />
+        <property name="configLocation" value="classpath:mybatis-config.xml" />
+    </bean>
+
+    <!--    扫描自定义的Mapper接口 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" >
+        <property name="basePackage" value="com.kawyang.repository" />
+    </bean>
+</beans>

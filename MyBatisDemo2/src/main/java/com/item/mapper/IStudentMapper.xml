@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.item.repository.IStudent">
+    <cache></cache>
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache" >
+<!--        创建缓存之后，对吼一次访问缓存的时间值缓存失效的时间间隔-->
+        <property name="timeToIdleSeconds" value="3600"/><!--1 hour-->
+<!--        缓存自创建时间起至失效的时间间隔  -->
+        <property name="timeToLiveSeconds" value="3600"/><!--1 hour-->
+<!--        -->
+        <property name="maxEntriesLocalHeap" value="1000"/>
+        <property name="maxEntriesLocalDisk" value="10000000"/>
+<!--        缓存回收策略，移除-近期使用最少的对象 -->
+        <property name="memoryStoreEvictionPolicy" value="LRU"/>
+    </cache>
+
+
+    <select id="findAll" resultType="com.item.entity.Student" useCache="true">
+        select id,name from student
+    </select>
+    
+<!--级联操作 -->
+
+    <!--    -->
+    <resultMap id="resultStu" type="com.item.entity.Student" >
+        <!--        property是对应的类对象属性名 -->
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <!--        内嵌对象   -->
+        <association property="classes" javaType="com.item.entity.Classes_" >
+            <id column="cid" property="id" />
+            <result column="cname" property="name" />
+        </association>
+    </resultMap>
+    <select id="findByAll" resultMap="resultStu" >
+        select s.id as id ,s.name as name , c.id as cid, c.name as cname from student s,classes c where c.id = s.cid
+    </select>
+
+
+<!--    延迟加载-->
+    <resultMap id="resultStuLazy" type="com.item.entity.Student" >
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <!-- 添加select 属性 -->
+        <association property="classes" javaType="com.item.entity.Classes_"
+                     select="com.item.repository.IClasses.findById"
+                     column="cid">
+        </association>
+    </resultMap>
+
+
+    <select id="findById" resultMap="resultStuLazy">
+        select id,name,cid from student where id=#{id}
+    </select>
+
+
+    <insert id="insertStudent" parameterType="com.item.entity.Student" >
+        insert into student (id,name,cid) value(#{id}, #{name}, #{classes.id})
+    </insert>
+
+    <select id="findByStu" parameterType="com.item.entity.Student" >
+        select * from student
+        <where>
+            <if test="id != 0">
+                and id=#{id}
+            </if>
+            <if test="name !=null">
+                and name=#{name}
+            </if>
+        </where>
+    </select>
+
+    <select id="findByStu" parameterType="com.item.entity.Student" >
+        select * from student
+        <where>
+            <choose>
+                <when test="id!=0">
+                    id = #{id}
+                </when>
+                <when test="name!=null">
+                    name=#{name}
+                </when>
+            </choose>
+        </where>
+
+    </select>
+
+    <select id="findByStu" parameterType="com.item.entity.Student" >
+        select * from student
+        <trim prefix="where" prefixOverrides="and">
+            <if test="id != 0">
+                and id=#{id}
+            </if>
+            <if test="name !=null">
+                and name=#{name}
+            </if>
+        </trim>
+
+    </select>
+
+    <update id="update" parameterType="com.item.entity.Student">
+        update student
+        <set>
+            <if test="id != 0">
+                id=#{id}
+            </if>
+            <if test="name !=null">
+                name=#{name}
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <select id="selectByids" parameterType="com.item.entity.Student" >
+--         select * from student int (1,2,3,4)
+        select * from student
+        <where>
+<!--            <foreach collection="Student中的对象" open="元素之前的部分" close="之后部分" separator="分割方式" item="属性名" ></foreach>-->
+            <foreach collection="ids" open="id in (" close=")" separator="," item="id">
+                #{id}
+            </foreach>
+        </where>
+    </select>
+
+</mapper>

@@ -1,0 +1,27 @@
+Microsoft Windows [版本 6.3.9600]
+(c) 2013 Microsoft Corporation。保留所有权利。
+
+C:\Users\Administrator>cd ../../
+
+C:\>cd Users
+
+C:\Users>cd Administrator
+
+C:\Users\Administrator>cd Downloads
+
+C:\Users\Administrator\Downloads>cd mysql-8.0.21
+
+C:\Users\Administrator\Downloads\mysql-8.0.21>cd bin
+
+C:\Users\Administrator\Downloads\mysql-8.0.21\bin>mysqld --initialize --console
+2020-08-02T09:49:26.486573Z 0 [System] [MY-013169] [Server] C:\Users\Administrat
+or\Downloads\mysql-8.0.21\bin\mysqld.exe (mysqld 8.0.21) initializing of server
+in progress as process 2800
+2020-08-02T09:49:26.507403Z 1 [System] [MY-013576] [InnoDB] InnoDB initializatio
+n has started.
+2020-08-02T09:49:31.089755Z 1 [System] [MY-013577] [InnoDB] InnoDB initializatio
+n has ended.
+2020-08-02T09:49:32.752967Z 6 [Note] [MY-010454] [Server] A temporary password i
+s generated for root@localhost: n%tr_a5Y8._j
+
+C:\Users\Administrator\Downloads\mysql-8.0.21\bin>

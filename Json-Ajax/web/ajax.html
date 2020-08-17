@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax</title>
+    <script type="text/javascript" >
+        function setP(){
+            const xmlHttpRequest = new XMLHttpRequest();
+            xmlHttpRequest.open("GET", "http://localhost:8080/json", true);
+
+            xmlHttpRequest.onreadystatechange = function () {
+
+                if (xmlHttpRequest.readyState == 4 && xmlHttpRequest.status == 200){
+                    const json = JSON.parse(xmlHttpRequest.responseText);
+                    alert(json.id);
+                    document.getElementById("p1").innerText = "序号："+ json.id +"姓名：" + json.name;
+                }
+            }
+            xmlHttpRequest.send();
+
+        }
+    </script>
+</head>
+<body>
+<!--    <button -->
+<button value="button" onclick="setP()" >button</button>
+    <p id="p1" ></p>
+</body>
+</html>

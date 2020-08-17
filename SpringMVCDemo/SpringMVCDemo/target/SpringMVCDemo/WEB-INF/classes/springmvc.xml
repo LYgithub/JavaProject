@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.2.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+    <!--配置上传组件-->
+     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+     </bean>
+
+    <bean id="validator" class="com.kawyang.validator.AccountValidator"/>
+<!--    <mvc:annotation-driven validator="validator" />-->
+
+
+<!--  配置自定义转换器  并且在mvc:annotation-driven 进行注册conversion-service -->
+    <bean id="converter" class="org.springframework.context.support.ConversionServiceFactoryBean" >
+        <property name="converters" >
+            <list>
+                <bean class="com.kawyang.converter.DateConverter">
+                    <constructor-arg type="java.lang.String" name="Pattern" value="yyyy-MM-dd" />
+                </bean>
+
+                <bean class="com.kawyang.converter.StudentConverter" />
+            </list>
+        </property>
+    </bean>
+
+
+<!--   JSR -->
+    <mvc:annotation-driven />
+<!--  对数据进行转换，解决中文乱码问题，处理消息  -->
+    <mvc:annotation-driven conversion-service="converter" validator="validator">
+        <!--    消息转换器    -->
+        <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes" value="text/html;charset=utf-8" />
+            </bean>
+            <!--    配置fastjson        -->
+            <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter" />
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+
+    <!-- Spring MVC 的相关配置-->
+    <beans>
+        <!--   自动扫描     -->
+        <context:component-scan base-package="com.kawyang"/>
+
+        <!--    视图解析器    -->
+        <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" >
+<!--            逻辑输入转化为物理视图
+            "index"  => /index.jsp  -->
+<!--            前缀-->
+            <property name="prefix" value="/" />
+<!--            后缀-->
+            <property name="suffix" value=".jsp" />
+        </bean>
+    </beans>
+
+</beans>

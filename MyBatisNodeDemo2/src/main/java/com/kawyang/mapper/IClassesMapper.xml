@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kawyang.repository.IClassRepository">
+    <select id="findById" resultType="com.kawyang.entity.Classes">
+        select * from classes where id=#{id}
+    </select>
+
+    <!--  延迟加载start  -->
+    <resultMap id="classLazy" type="com.kawyang.entity.ClassesStu">
+        <id property="id" column="id" />
+        <result property="name" column="name" />
+        <collection property="students" ofType="com.kawyang.entity.Student"
+                    select="com.kawyang.repository.IStudentRepository.findByCid"
+                    column="id" />
+    </resultMap>
+
+    <select id="findByIdLazy" resultMap="classLazy" parameterType="int">
+        select * from classes where id=#{id}
+    </select>
+    <!--  延迟加载end  -->
+</mapper>
