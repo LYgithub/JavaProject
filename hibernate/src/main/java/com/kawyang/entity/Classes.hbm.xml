@@ -1,0 +1,11 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.kawyang.entity">
+    <class name="Classes" table="classes">
+        <id name="id" type="integer">
+            <column name="id"/>
+        </id>
+        <property name="name" type="java.lang.String">
+            <column name="name" />
+        </property>
+    </class>
+</hibernate-mapping>
