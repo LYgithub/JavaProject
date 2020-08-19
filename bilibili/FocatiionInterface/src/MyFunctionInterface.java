@@ -30,6 +30,4 @@ public interface MyFunctionInterface {
     static void test(){
         System.out.println("test");
     }
-
-
 }

@@ -51,7 +51,8 @@ public class WriterDemo {
      */
     private static void write1() {
 
-        try(FileWriter fileWriter = new FileWriter("src/liu/c.txt"); FileReader fileReader = new FileReader("src/liu/c.txt")){
+        try(FileWriter fileWriter = new FileWriter("src/liu/c.txt");
+            FileReader fileReader = new FileReader("src/liu/c.txt")){
 
             fileWriter.write(97);
             char[] arr = {'a','\n','b','\n','c','好'};

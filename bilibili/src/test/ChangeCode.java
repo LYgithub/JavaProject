@@ -13,8 +13,10 @@ import java.nio.charset.StandardCharsets;
 public class ChangeCode {
     public static void main(String[] args) {
         try{
-            InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream("src/test/utf-8.txt"), StandardCharsets.UTF_8);
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream("src/test/jbk.txt"),"gbk");
+            InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream("src/test/utf-8.txt"),
+                    StandardCharsets.UTF_8);
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream("src/test/jbk.txt"),
+                    "gbk");
             int len;
             while ((len = inputStreamReader.read())!= -1){
                 System.out.print((char) len);
@@ -22,6 +24,7 @@ public class ChangeCode {
             }
             //刷新进文文件
             outputStreamWriter.flush();
+
             inputStreamReader.close();
             outputStreamWriter.close();
         }catch (IOException e){

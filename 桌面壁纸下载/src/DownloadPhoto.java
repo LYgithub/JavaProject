@@ -7,10 +7,7 @@ import java.net.URL;
 
 /**
  * @author LiYang
- * @Project Name: HelloApp
- * @Package Name: PACKAGE_NAME
- * Created by MacBook Air on 2020/03/07.
- * Copyright © 2020 LiYang. All rights reserved.
+ * 图片下载程序
  * https://wallpaper.infinitynewtab.com/wallpaper/2352.jpg
  * 1000 - 2244
  */

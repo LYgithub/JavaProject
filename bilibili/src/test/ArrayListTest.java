@@ -32,12 +32,20 @@ public class ArrayListTest {
     public static void read() {
 
         try{
+
+            // 对象输入输出流
             ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("src/test/object.txt"));
             Object o = objectInputStream.readObject();
             ArrayList<Point> list = (ArrayList<Point>)o;
-            for (Point point : list) {
-                point.print();
-            }
+            //for (Point point : list) {
+            //    point.print();
+            //}
+
+
+            // lambda 简化
+            // :: 表示引用
+            list.forEach(Point::print);
+
             objectInputStream.close();
         }catch (IOException | ClassNotFoundException e){
             System.out.println("Error:" + e.toString());

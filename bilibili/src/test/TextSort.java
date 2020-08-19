@@ -36,7 +36,10 @@ public class TextSort {
                 bufferedWriter.write(hashMap.get(key));
                 bufferedWriter.newLine();
             }
+
+            // 7.1 提交文本
             bufferedWriter.flush();
+
             //  8. 释放资源
             bufferedReader.close();
             bufferedWriter.close();
