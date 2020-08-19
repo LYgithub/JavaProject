@@ -11,8 +11,11 @@
 
 /**
     可以监测是否是一个编译
- * @author LiYang
+    @author LiYang
+
+ 函数式接口，只包含一个抽象方法
  */
+
 @FunctionalInterface
 public interface MyFunctionInterface {
 

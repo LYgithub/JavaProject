@@ -9,6 +9,11 @@ public class Demo {
     public static void main(String[] args) {
         show(new MyFunctionImpl());
         show(new Test());
+        show(() -> System.out.println("--sds"));
+        show(() ->
+            System.out.println("test")
+        );
+
     }
 
     /**
