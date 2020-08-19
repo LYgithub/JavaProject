@@ -20,11 +20,18 @@ public class NetTest {
             ServerSocket serverSocket = new ServerSocket(8080);
             while(true){
 
-                try{
-                    // 监听客户端发送请求
-                    Socket socket = serverSocket.accept();
-                    InputStream  inputStream = socket.getInputStream();
+                // 监听客户端发送请求
+                Socket socket = serverSocket.accept();
+                InputStream  inputStream = socket.getInputStream();
+                OutputStream outputStream =  socket.getOutputStream();
 
+                // 设置响应的相关数据
+                outputStream.write("HTTP/1.1 200 OK\r\n".getBytes());
+                // 设置编码格式
+                outputStream.write("Content-Type:text/html;charset=utf-8\r\n".getBytes());
+                outputStream.write("\r\n".getBytes());
+
+                try{
                     // 获取请求的URL
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
                     String url = bufferedReader.readLine();
@@ -36,13 +43,6 @@ public class NetTest {
                     System.out.println(file);
 
                     FileInputStream fileInputStream = new FileInputStream("./网络/src/Net/" + file);
-                    OutputStream outputStream =  socket.getOutputStream();
-
-                    // 设置响应的相关数据
-                    outputStream.write("HTTP/1.1 200 OK\r\n".getBytes());
-                    // 设置编码格式
-                    outputStream.write("Content-Type:text/html;charset=utf-8\r\n".getBytes());
-                    outputStream.write("\r\n".getBytes());
 
                     int len ;
                     byte[] bytes = new byte[1024];
@@ -51,19 +51,15 @@ public class NetTest {
                         outputStream.write(bytes,0,len);
                     }
 
-                    outputStream.close();
 
-                    socket.close();
-
-                }catch (Exception e){
+                }catch (Exception e) {
                     e.printStackTrace();
+                    outputStream.write(e.getMessage().getBytes());
+                }finally {
+                    outputStream.close();
+                    socket.close();
                 }
-
-
             }
-
-
-
         }catch (IOException e){
             System.out.println(e.toString());
         }

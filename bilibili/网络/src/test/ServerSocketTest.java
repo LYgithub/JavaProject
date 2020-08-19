@@ -25,8 +25,7 @@ public class ServerSocketTest {
             Pro.upLoad(socket,"/Server.txt");
             serverSocket.close();
 
-        } catch (
-                IOException e) {
+        } catch (IOException e) {
             System.out.println("ServerSocket Error:"+e.toString());
         }
     }

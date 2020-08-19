@@ -59,7 +59,7 @@ public class Pro {
         FileOutputStream fileOutputStream = new FileOutputStream(file + filename);
 
         byte [] b = new byte[1024];
-        int len =0;
+        int len;
         while ((len = inputStream.read(b)) != -1){
             //保存到服务器的磁盘上
             fileOutputStream.write(b,0,len);
