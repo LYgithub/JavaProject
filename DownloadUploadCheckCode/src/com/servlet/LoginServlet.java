@@ -1,6 +1,6 @@
 package com.servlet;
 
-import com.util.JDBCutil;
+import com.util.JDBCUtil;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -33,7 +33,11 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("inputUsername");
         String password = req.getParameter("inputPassword");
-        if (JDBCutil.loginCheck(username,password)){
+        String checkCode = req.getParameter("");
+        if("".equals(checkCode)){
+            System.out.println(checkCode);
+        }
+        if (JDBCUtil.loginCheck(username,password)){
             req.getRequestDispatcher("welcome.html").forward(req,resp);
         }else {
             req.getRequestDispatcher("Error.html").forward(req,resp);

@@ -34,7 +34,7 @@ public class DownloadPhoto {
         int n;
         File file = new File("/Users/mac/Desktop/photo/" + i + ".jpg");
         FileOutputStream out = new FileOutputStream(file);
-        while ( (n = input.read())!= -1){
+        while ( (n = input.read()) != -1){
             out.write(n);
         }
         out.close();

@@ -44,6 +44,9 @@ public class DownloadServlet extends HttpServlet {
         while((len = fileInputStream.read(buff)) != -1){
             outputStream.write(buff, 0, len);
         }
+
+        outputStream.close();
+    
         fileInputStream.close();
 
     }

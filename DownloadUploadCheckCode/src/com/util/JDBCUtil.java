@@ -1,7 +1,6 @@
 package com.util;
 
 import java.io.FileReader;
-import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.Properties;
@@ -13,10 +12,10 @@ import java.util.Properties;
  * Created by MacBook Air on 2020/06/10.
  * Copyright © 2020 LiYang. All rights reserved.
  */
-public class JDBCutil {
+public class JDBCUtil {
     private static String url,user,password;
     static {
-        URL resource = JDBCutil.class.getClassLoader().getResource("pro.properties");
+        URL resource = JDBCUtil.class.getClassLoader().getResource("pro.properties");
         assert resource != null;
         String path = resource.getFile();
         Properties properties = new Properties();
@@ -33,12 +32,9 @@ public class JDBCutil {
     }
 
     public  static boolean loginCheck(String username, String password){
-        Connection con = null;
-        PreparedStatement sta = null;
-        String sql = "select * from user where userName=? and passWord=?";
-        try{
-            con = getConnection();
-            sta = con.prepareStatement(sql);
+
+        String sql = "select * from user1 where userName=? and passWord=?";
+        try(Connection con = getConnection();PreparedStatement sta = con.prepareStatement(sql)){
             sta.setString(1, username);
             sta.setString(2, password);
             ResultSet resultSet = sta.executeQuery();

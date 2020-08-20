@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Random;
 
 /**
@@ -30,7 +29,7 @@ public class CheckCodeServlet extends HttpServlet {
         int height = 50;
         resp.setCharacterEncoding("utf-8");
 
-//        resp.setContentType("text/html;charset=utf-8");
+        //resp.setContentType("text/html;charset=utf-8");
         // 1. 创建一个对象，在内存中代表图片
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
@@ -44,7 +43,7 @@ public class CheckCodeServlet extends HttpServlet {
         g.setColor(Color.BLACK);
         g.drawRect(0, 0, width-1, height-1);
 
-        String s = "ABCDEFGHIGKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        String s = "ABCDEFGHIGKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
         //生成随机数据
         Random random = new Random();
