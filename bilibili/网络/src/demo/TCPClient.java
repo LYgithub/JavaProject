@@ -14,14 +14,13 @@ import java.net.Socket;
  */
 public class TCPClient {
     public static void main(String[] args) {
-        try {
-            Socket socket = new Socket("127.0.0.1", 8888);
+        try (Socket socket = new Socket("127.0.0.1", 8888);){
+            
             //使用Socket 的字节输出流
             OutputStream outputStream = socket.getOutputStream();
             //使用字节输出流 向服务器发送数据
-            outputStream.write("你好服务器!".getBytes());
-
-
+            String s ="你好服务器!";
+            outputStream.write(s.getBytes());
             InputStream inputStream = socket.getInputStream();
             byte[] b = new byte[1024];
             int len = inputStream.read(b);

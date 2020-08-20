@@ -20,7 +20,7 @@ public class SocketTest {
     public static void main(String[] args) {
         try{
             //创建本地输入流
-            FileInputStream fileInputStream = new FileInputStream("网络/src/test/Socket.txt");
+            FileInputStream fileInputStream = new FileInputStream("src/test/Socket.txt");
             //创建客户端对象
             Socket socket = new Socket("127.0.0.1",8888);
             //获取网络字节输出流对象

@@ -15,9 +15,8 @@ import java.net.Socket;
  */
 public class NetTest {
     public static void main(String[] args) {
-        try{
+        try(ServerSocket serverSocket = new ServerSocket(8080);){
             // 创建服务器对象，并且设置端口号为 8080
-            ServerSocket serverSocket = new ServerSocket(8080);
             while(true){
 
                 // 监听客户端发送请求
@@ -42,7 +41,7 @@ public class NetTest {
                     String file = arr[1].substring(1);
                     System.out.println(file);
 
-                    FileInputStream fileInputStream = new FileInputStream("./网络/src/Net/" + file);
+                    FileInputStream fileInputStream = new FileInputStream("src/Net/" + file);
 
                     int len ;
                     byte[] bytes = new byte[1024];
@@ -51,6 +50,7 @@ public class NetTest {
                         outputStream.write(bytes,0,len);
                     }
 
+                    fileInputStream.close();
 
                 }catch (Exception e) {
                     e.printStackTrace();

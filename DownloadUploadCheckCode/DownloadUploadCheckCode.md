@@ -42,7 +42,17 @@
 
 # 文件上传下载
 
+> 设置response 请求头，content-disposition:attachment;filename=file " 设置 
+>
+> MIME 类型：多用途互联网邮件扩展类型。是设定某种扩展名的[文件]()用一种[应用程序]()来打开的方式类型，当该扩展名文件被访问的时候，浏览器会自动使用指定应用程序来打开。
+
+1. 通过浏览器发送的请求获取需要的内容
+2. 使用字节输入流加载进内存
+3. 设置相应头信息
+4. 将数据传送到网络
+
 ```java
+// Download?filename=images_1.png
 @Override
 protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //1. 获取请求参数
@@ -78,3 +88,6 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 # 参考内容
 
 [转发和重定向的区别和使用](https://blog.csdn.net/weixin_40001125/article/details/88663468)
+
+ [MIME类型](https://baike.baidu.com/item/MIME/2900607#2)
+

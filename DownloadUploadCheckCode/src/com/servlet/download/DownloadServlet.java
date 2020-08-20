@@ -40,15 +40,13 @@ public class DownloadServlet extends HttpServlet {
         // 4.
         ServletOutputStream outputStream = response.getOutputStream();
         byte[]buff = new byte[1024 * 8];
-        int len = 0;
+        int len;
         while((len = fileInputStream.read(buff)) != -1){
             outputStream.write(buff, 0, len);
         }
 
         outputStream.close();
-    
         fileInputStream.close();
-
     }
 
     @Override

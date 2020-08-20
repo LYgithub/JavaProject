@@ -39,8 +39,7 @@ public class ResponseDemo4 extends HttpServlet {
         writer.write("Hello Response");
         //window  JBK， JB132
         writer.write("你好！！");
-
-
-
     }
+
+
 }

@@ -14,13 +14,15 @@ import java.io.IOException;
  */
 public class FileTest {
     public static void main(String[] args) {
-        try {
-            FileOutputStream fileOutputStream = new FileOutputStream("Server.txt");
+        try(FileOutputStream fileOutputStream = new FileOutputStream("Server.txt")) {
             fileOutputStream.write("test".getBytes());
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }finally{
+            
         }
     }
 }
