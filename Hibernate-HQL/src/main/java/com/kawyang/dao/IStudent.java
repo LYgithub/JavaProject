@@ -17,8 +17,6 @@ public interface IStudent {
     Student findByHQL(String hql);
 
     List<Student> findSome();
-
-
     void save(Student student);
     void update(Student student);
     void delete(Student student);
