@@ -1,0 +1,10 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.kawyang.entity">
+    <class table="Student" name="Student">
+        <id name="id" column="id" type="int" />
+        <property name="name" column="name" type="java.lang.String" />
+        <property name="age" column="age" type="int"/>
+        <property name="birthday" column="birthday" type="date" />
+    </class>
+</hibernate-mapping>
