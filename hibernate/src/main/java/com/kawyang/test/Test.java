@@ -19,7 +19,7 @@ public class Test {
 
         SessionFactory sessionFactory = configuration.buildSessionFactory();
         Session session = sessionFactory.openSession();
-        Student student = new Student(1,"asd",null);
+        Student student = new Student();
         session.save(student);
         session.beginTransaction().commit();
         session.close();
