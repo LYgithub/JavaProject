@@ -9,6 +9,16 @@ package com.kawyang;
  */
 public interface Paper {
     public static final String newLine = "\r\n";
+
+    /**
+     * 打印字符
+     * @param c
+     */
     public void putIntChar(char c);
+
+    /**
+     * 获取文本信息
+     * @return 文本内容
+     */
     public String getContext();
 }
