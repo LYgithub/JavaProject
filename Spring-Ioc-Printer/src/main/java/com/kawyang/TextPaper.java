@@ -15,6 +15,7 @@ public class TextPaper implements Paper {
     posY = 0,
     posP = 1;
 
+    @Override
     public void putIntChar(char c) {
         context += c;
         ++posX;
@@ -49,6 +50,7 @@ public class TextPaper implements Paper {
         }
     }
 
+    @Override
     public String getContext() {
         String ret = this.context;
 
