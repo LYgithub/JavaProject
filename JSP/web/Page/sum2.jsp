@@ -13,9 +13,7 @@
 <body>
 <% request.setCharacterEncoding("utf8");%>
 <%
-    pageContext.setAttribute("APP_PATH", request.getContextPath());
     Add add = new Add();
-
     String s1 = request.getParameter("date1");
     String s2 = request.getParameter("date2");
     int x = Integer.parseInt(s1);
@@ -23,7 +21,6 @@
     add.setDate1(x);
     add.setDate2(y);
 %>
-"${APP_PATH}"
 <%= add.getDate1()%>+<%=add.getDate2()%>=<%=add.sum()%>
 </body>
 </html>
