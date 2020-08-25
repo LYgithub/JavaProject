@@ -1,5 +1,4 @@
-import com.kawyang.entity.Printer;
-import com.kawyang.impl.TextPaper;
+import com.kawyang.Printer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

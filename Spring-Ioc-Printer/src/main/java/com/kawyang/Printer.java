@@ -1,4 +1,4 @@
-package com.kawyang.entity;
+package com.kawyang;
 
 /**
  * @author LiYang

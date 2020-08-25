@@ -1,6 +1,4 @@
-package com.kawyang.impl;
-
-import com.kawyang.entity.Paper;
+package com.kawyang;
 
 /**
  * @author LiYang
