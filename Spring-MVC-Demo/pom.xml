@@ -58,6 +58,21 @@
     </dependency>
 
     <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.17</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
+
+    <!-- AoP 依赖 -->
+
+    <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-aop</artifactId>
       <version>5.2.5.RELEASE</version>
@@ -68,6 +83,14 @@
       <artifactId>spring-aspects</artifactId>
       <version>5.2.7.RELEASE</version>
     </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-aop</artifactId>
+      <version>5.2.5.RELEASE</version>
+    </dependency>
+    <!-- end -->
+
+
   </dependencies>
 
   <build>
