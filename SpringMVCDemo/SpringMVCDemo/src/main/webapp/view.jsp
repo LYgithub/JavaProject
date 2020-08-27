@@ -12,10 +12,10 @@
     <title>Title</title>
 </head>
 <body>
-${requestScope.user}
-<hr/>
-${sessionScope.user}
-<hr/>
-${applicationScope.user}
+    ${requestScope.user}
+    <hr/>
+    ${sessionScope.user}
+    <hr/>
+    ${applicationScope.user}
 </body>
 </html>

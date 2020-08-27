@@ -20,6 +20,6 @@ public class AOPProxy {
         Cal test = (Cal)applicationContext.getBean("test");
         System.out.println(test.getClass().getName());
         System.out.println(test.add(1,2));
-        System.out.println(test.div(2, 0));
+        System.out.println(test.div(2,0));
     }
 }

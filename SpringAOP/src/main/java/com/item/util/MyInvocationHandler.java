@@ -25,7 +25,14 @@ public class MyInvocationHandler implements InvocationHandler {
      */
     public Object bind(Object object){
         this.object = object;
-        return Proxy.newProxyInstance(object.getClass().getClassLoader(), object.getClass().getInterfaces(), this);
+        System.out.println("interFace : "+ object.getClass().getInterfaces());
+        return Proxy.newProxyInstance(
+                // 加载代理对象的类加载器
+                object.getClass().getClassLoader(),
+                // 动态代理需要实现的接口
+                object.getClass().getInterfaces(),
+                //动态代理方法在执行时需要回调类里的 invoke 方法
+                this);
     }
 
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {

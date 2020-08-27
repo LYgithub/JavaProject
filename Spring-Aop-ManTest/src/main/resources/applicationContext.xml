@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+    <!--  配置自动扫描 , 需要引入  context 和 spring-context 'schemaLocation' -->
+    <context:component-scan base-package="com.yang" />
+
+
+    <bean id="man" class="com.yang.Man" p:name="张三" />
+
+
+    <bean id="fbi" class="com.yang.FBI" />
+
+    <!--  浪姐或者监听的目标 target ，负责进行处理监听结果的对象 是 fbi -->
+    <bean id="civilian" class="org.springframework.aop.framework.ProxyFactoryBean" scope="singleton">
+        <property name="target" ref="man"/>
+        <property name="interceptorNames" >
+            <list>
+                <value>fbi</value>
+            </list>
+        </property>
+    </bean>
+
+
+    <!--  实例化工厂 ， 创建工厂实例， 然后调用非静态方法 ， 获取Man 对象-->
+    <bean id="manFact" class="com.yang.ManFactory"  scope="prototype"/>
+
+    <bean id="man0" factory-bean="manFact" factory-method="getMan0" >
+        <constructor-arg index="0" value="李四" />
+    </bean>
+
+    <!--  实例化工厂  end  -->
+
+
+    <!--  静态工厂配置 ， method 为 静态工厂的静态方法，获取对象 , 默认为 单例   -->
+    <bean id="man1" class="com.yang.ManFactory" factory-method="getMan" scope="singleton">
+        <constructor-arg index="0" value="张三"/>
+    </bean>
+
+
+
+
+
+</beans>
