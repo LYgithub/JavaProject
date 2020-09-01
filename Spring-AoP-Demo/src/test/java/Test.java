@@ -13,7 +13,6 @@ public class Test {
     public static void main(String[] args) {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
         Demo demo = ((Demo) applicationContext.getBean("demo"));
-
         demo.method1("参数1",2);
     }
 }

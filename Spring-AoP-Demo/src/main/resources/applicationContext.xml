@@ -33,7 +33,7 @@
             <aop:after-returning method="AfterReturning" pointcut-ref="point1" returning="value_return" />
 
             <aop:after method="AfterMethod" pointcut-ref="point1" />
-            
+
         </aop:aspect>
     </aop:config>
 
