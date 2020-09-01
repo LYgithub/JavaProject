@@ -11,8 +11,7 @@
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
         http://www.springframework.org/schema/aop
-        http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
-">
+        http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
 
     <!-- 自动扫描 -->
     <context:component-scan base-package="com.yang" />
@@ -23,10 +22,31 @@
         <property name="suffix" value=".jsp" />
     </bean>
     <!--  后置增强  -->
+    <!--<aop:config>-->
+    <!--    <aop:pointcut id="point" expression="execution(* com.yang.controller.*.*(..))"/>-->
+    <!--    <aop:aspect ref="log">-->
+    <!--        <aop:after method="AfterLog" pointcut-ref="point" />-->
+    <!--    </aop:aspect>-->
+    <!--</aop:config>-->
+
+
     <aop:config>
         <aop:pointcut id="point" expression="execution(* com.yang.controller.*.*(..))"/>
-        <aop:aspect ref="log">
+        <aop:aspect ref="log" >
+            <!-- 前置增强 -->
+            <aop:before method="BeforeLog" pointcut-ref="point" />
+
+            <!--  将异常内容传递到设置的参数中， 即 e  -->
+            <aop:after-throwing method="ErrorMethod" pointcut-ref="point" throwing="e"/>
+
+
+            <!-- 最终增强  类似 finally  -->
             <aop:after method="AfterLog" pointcut-ref="point" />
+            <!-- 返回增强，当产生返回值时调用 ，当发生异常时不被执行 , 获取返回值的内容，Object 类型-->
+            <aop:after-returning method="AfterReturning" pointcut-ref="point" returning="object"/>
+
+            <!-- 完美  环绕增强  -->
+            <!--<aop:around method="Around" pointcut-ref="point" arg-names="proceedingJoinPoint,e,obj"  />-->
         </aop:aspect>
     </aop:config>
 </beans>

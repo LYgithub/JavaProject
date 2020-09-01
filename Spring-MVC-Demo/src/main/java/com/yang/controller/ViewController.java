@@ -40,6 +40,8 @@ public class ViewController {
     @RequestMapping("/map")
     public String map(Map<String,Person> map){
         map.put("person", person);
+        int x = 1/0 ;
+        System.out.println(x);
         return "demo";
     }
 

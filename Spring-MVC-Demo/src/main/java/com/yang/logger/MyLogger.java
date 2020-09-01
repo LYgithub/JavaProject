@@ -2,6 +2,7 @@ package com.yang.logger;
 
 import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -35,7 +36,39 @@ public class MyLogger {
         String name = joinpoint.getSignature().getName();
         Object[] args = joinpoint.getArgs();
         String s = Arrays.toString(args);
-        logger.info(target + ">>>" + name + "方法被调用，参数为：" + s);
+        logger.info(target + ">>> After >>>" + name + "方法被调用，参数为：" + s);
 
+    }
+
+    public void ErrorMethod( JoinPoint joinPoint, Exception e) {
+        logger.info(joinPoint.getTarget()+">>> Error  >>>" + joinPoint.getSignature().getName()+ ":"+e.getMessage());
+    }
+
+    public void BeforeLog(JoinPoint joinPoint){
+        // 通过设置参数获取 切点参数
+        Object target = joinPoint.getTarget();
+        String name = joinPoint.getSignature().getName();
+        Object[] args = joinPoint.getArgs();
+        String s = Arrays.toString(args);
+        logger.info(target + ">>> Before >>>" + name + "方法被调用，参数为：" + s);
+    }
+
+    /**
+     * 返回增强
+     * @param joinPoint
+     * @throws Throwable
+     */
+    public void AfterReturning(JoinPoint joinPoint, Object object){
+        // 通过设置参数获取 切点参数
+        Object target = joinPoint.getTarget();
+        String name = joinPoint.getSignature().getName();
+        Object[] args = joinPoint.getArgs();
+        String s = Arrays.toString(args);
+        logger.info(target + ">>> Returning >>>" + name + "方法被调用，参数为：" + s);
+    }
+
+    public Object Around(ProceedingJoinPoint proceedingJoinPoint,Exception e, Object obj) throws Throwable {
+        String name = proceedingJoinPoint.getSignature().getName();
+        return null;
     }
 }
