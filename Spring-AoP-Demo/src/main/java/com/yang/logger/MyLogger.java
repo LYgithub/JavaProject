@@ -24,7 +24,6 @@ public class MyLogger {
         String name = joinPoint.getSignature().getName();
         Object target = joinPoint.getTarget();
         Object[] args = joinPoint.getArgs();
-
         logger.info(">> BeforeMethod >>>" + name + ":" + target + ":" + Arrays.toString(args));
     }
 

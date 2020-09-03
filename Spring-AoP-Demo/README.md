@@ -12,7 +12,7 @@
     <!-- 设置切面 -->
     <aop:aspect >
        <!-- 设置切点 --> 
-       <aop:Before ></aop:Before>
+       <aop:Before></aop:Before>
     </aop:aspect>
 </aop:config>
 ```
@@ -45,4 +45,142 @@
 #### Around
 
 - 待学习
+
+### 实例
+
+#### AoP配置
+
+```xml
+    <aop:config>
+        <!-- 设置多个切点 -->
+        <aop:pointcut id="point" expression="execution(* com.yang..*.*(..))"/>
+        <aop:pointcut id="point1" expression="execution(* com.yang.test.*.*(..))"/>
+        <aop:aspect ref="myLogger">
+            <aop:before method="BeforeMethod" pointcut-ref="point" />
+            <aop:after method="AfterMethod" pointcut-ref="point" />
+            <aop:after-throwing method="AfterThrowing" pointcut-ref="point" throwing="e"/>
+            <aop:after-returning method="AfterReturning" pointcut-ref="point" returning="value_return" />
+
+            <aop:after method="AfterMethod" pointcut-ref="point2" />
+        </aop:aspect>
+        <!-- 位置错误 -->
+        <!--<aop:pointcut id="point1" expression="execution(* com.yang.test.*(..))"/> -->
+
+        <aop:aspect ref="myLogger">
+            <aop:before method="BeforeMethod" pointcut-ref="point1" />
+            <aop:after method="AfterMethod" pointcut-ref="point1" />
+            <aop:after-throwing method="AfterThrowing" pointcut-ref="point1" throwing="e"/>
+            <aop:after-returning method="AfterReturning" pointcut-ref="point1" returning="value_return" />
+
+            <aop:after method="AfterMethod" pointcut-ref="point1" />
+
+        </aop:aspect>
+    </aop:config>
+```
+
+#### Logger类
+
+```java
+package com.yang.logger;
+
+import org.apache.log4j.Logger;
+import org.aspectj.lang.JoinPoint;
+import org.springframework.stereotype.Component;
+
+import java.util.Arrays;
+
+/**
+ * @author LiYang
+ * @Project Name: Spring-AoP-Demo
+ * @Package Name: com.yang.aop
+ * Created by MacBook Air on 2020/09/01.
+ * Copyright © 2020 LiYang. All rights reserved.
+ */
+
+@Component("myLogger")
+public class MyLogger {
+
+    private Logger logger = Logger.getLogger(MyLogger.class);
+
+    public void BeforeMethod(JoinPoint joinPoint){
+        //
+        String name = joinPoint.getSignature().getName();
+        Object target = joinPoint.getTarget();
+        Object[] args = joinPoint.getArgs();
+        logger.info(">> BeforeMethod >>>" + name + ":" + target + ":" + Arrays.toString(args));
+    }
+
+    public void AfterMethod(JoinPoint joinPoint){
+        logger.info(">> AfterMethod >>>" + joinPoint.getSignature().getName() );
+    }
+
+    public void AfterThrowing(JoinPoint joinPoint, Exception e){
+        logger.info(">> AfterThrowing >>>" + joinPoint.getSignature().getName() + ":Error Message:" + e.getMessage()) ;
+    }
+
+    public void AfterReturning(JoinPoint joinPoint, Object value_return){
+        logger.info(">> AfterReturning >>>" + joinPoint.getSignature().getName() + ":Return Value:" + value_return.toString() );
+    }
+}
+
+```
+
+#### 被切入类
+
+```java
+package com.yang.test;
+
+import org.springframework.stereotype.Component;
+
+/**
+ * @author LiYang
+ * @Project Name: Spring-AoP-Demo
+ * @Package Name: com.yang.test
+ * Created by MacBook Air on 2020/09/01.
+ * Copyright © 2020 LiYang. All rights reserved.
+ */
+@Component("demo")
+public class Demo {
+    public String method1(String arg1, int id){
+        try {
+            System.out.println("———————  Start method  ———————");
+            int x = 1 / 0;
+            System.out.println(x);
+            return "Finish";
+        }catch (Exception e){
+            return "Error";
+        }
+        finally {
+            System.out.println("———————  End method  ———————");
+        }
+    }
+}
+```
+
+#### 测试
+
+```java
+public class Test {
+    public static void main(String[] args) {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+        Demo demo = ((Demo) applicationContext.getBean("demo"));
+        demo.method1("参数1",2);
+    }
+}
+```
+
+#### 运行结果
+
+```sh
+09-03 14:52:45[INFO]com.yang.logger.MyLogger >> BeforeMethod >>>method1:com.yang.test.Demo@12359a82:[参数1, 2]
+09-03 14:52:45[INFO]com.yang.logger.MyLogger >> BeforeMethod >>>method1:com.yang.test.Demo@12359a82:[参数1, 2]
+———————  Start method  ———————
+———————  End method  ———————
+09-03 14:52:45[INFO]com.yang.logger.MyLogger >> AfterMethod >>>method1
+09-03 14:52:45[INFO]com.yang.logger.MyLogger >> AfterMethod >>>method1
+09-03 14:52:45[INFO]com.yang.logger.MyLogger >> AfterReturning >>>method1:Return Value:Error
+09-03 14:52:45[INFO]com.yang.logger.MyLogger >> AfterReturning >>>method1:Return Value:Error
+09-03 14:52:45[INFO]com.yang.logger.MyLogger >> AfterMethod >>>method1
+09-03 14:52:45[INFO]com.yang.logger.MyLogger >> AfterMethod >>>method1
+```
 
