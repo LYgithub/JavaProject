@@ -1,4 +1,5 @@
 import com.yang.test.Demo;
+import com.yang.test.Demo2;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -14,5 +15,8 @@ public class Test {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
         Demo demo = ((Demo) applicationContext.getBean("demo"));
         demo.method1("参数1",2);
+        System.out.println("========= 环绕增强 ========");
+        Demo2 demo2 = ((Demo2) applicationContext.getBean("demo2"));
+        demo2.method1("参数1",2);
     }
 }

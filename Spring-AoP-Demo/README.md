@@ -7,7 +7,7 @@
 
 ```xml
 <aop:config>
-	<!-- 定义切点的位置 --> 
+    <!-- 定义切点的位置 --> 
     <aop:pointcut  />
     <!-- 设置切面 -->
     <aop:aspect >
@@ -44,9 +44,11 @@
 
 #### Around
 
-- 待学习
+- [around](## 环绕增强)
 
 ### 实例
+
+[源码连接](https://github.com/LYgithub/JavaProject/tree/master/Spring-AoP-Demo)
 
 #### AoP配置
 
@@ -119,7 +121,7 @@ public class MyLogger {
     }
 
     public void AfterReturning(JoinPoint joinPoint, Object value_return){
-        logger.info(">> AfterReturning >>>" + joinPoint.getSignature().getName() + ":Return Value:" + value_return.toString() );
+        logger.info(">> afterReturning >>>" + joinPoint.getSignature().getName() + ":Return Value:" + value_return.toString() );
     }
 }
 
@@ -183,4 +185,82 @@ public class Test {
 09-03 14:52:45[INFO]com.yang.logger.MyLogger >> AfterMethod >>>method1
 09-03 14:52:45[INFO]com.yang.logger.MyLogger >> AfterMethod >>>method1
 ```
+
+## 环绕增强
+
+> 环绕增强可以完成以上所有的增强方法
+
+
+
+```xml
+<!-- 配置环绕增强 -->
+<aop:config>
+    <aop:pointcut id="point_around" expression="execution(* com.yang.test.Demo2.*(..))"/>
+    <aop:aspect ref="myLogger">
+        <aop:around method="aroundMethod" pointcut-ref="point_around" />
+    </aop:aspect>
+</aop:config>
+```
+
+
+
+```java
+/**
+ * ProceedingJoinPoint extends JoinPoint
+ * @param joinPoint
+ */
+public void aroundMethod(ProceedingJoinPoint joinPoint){
+    // 前置增强方法
+    Object object = null;
+    logger.info("增强前");
+    try {
+        // 类似拦截器 放行后执行方法， 并将方法的返回值作为 proceed 方法的返回值(后置增强)
+        object = joinPoint.proceed();
+
+    } catch (Throwable e) {
+        // 抛出的异常作为 切入方法所抛出的异常(异常抛出增强)
+        logger.info("Error:"+ e.getMessage());
+    }
+
+    // 最终增强
+    logger.info("增强后:" + object);
+}
+```
+
+```java
+@Component("demo")
+public class Demo {
+    public String method1(String arg1, int id){
+        try {
+            System.out.println("———————  Start method  ———————");
+            int x = 1 / 0;
+            System.out.println(x);
+            return "Finish";
+        }catch (Exception e){
+            return "返回值:Error";
+        }
+        finally {
+            System.out.println("———————  End method  ———————");
+        }
+    }
+}
+```
+
+#### 运行过程如图所示
+
+> 将 `Demo` 作为被切入对象
+
+![image-20200903164416888](https://gitee.com/KawYang/image/raw/master/img/image-20200903164416888.png)
+
+## 总结
+
+![image-20200903154558872](https://gitee.com/KawYang/image/raw/master/img/image-20200903154558872.png)
+
+## 参考内容
+
+ [05.AoP基本实现](https://www.bilibili.com/video/BV1TE411N7Hc?from=search&seid=4096017029823603152)
+
+[09.增强处理](https://www.bilibili.com/video/BV1mE411A7hg?from=search&seid=7668663742364257843)
+
+[10.环绕增强](https://www.bilibili.com/video/BV1PE411w7sZ?from=search&seid=5578020669846959998)
 

@@ -18,7 +18,7 @@
 
     <bean id="fbi" class="com.yang.FBI" />
 
-    <!--  浪姐或者监听的目标 target ，负责进行处理监听结果的对象 是 fbi -->
+    <!--  拦截或者监听的目标 target ，负责进行处理监听结果的对象 是 fbi -->
     <bean id="civilian" class="org.springframework.aop.framework.ProxyFactoryBean" scope="singleton">
         <property name="target" ref="man"/>
         <property name="interceptorNames" >
@@ -35,7 +35,6 @@
     <bean id="man0" factory-bean="manFact" factory-method="getMan0" >
         <constructor-arg index="0" value="李四" />
     </bean>
-
     <!--  实例化工厂  end  -->
 
 
