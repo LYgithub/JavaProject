@@ -42,9 +42,7 @@
 > After-returning 将方法的返回值之后作为切入点
 > returning 属性，传递返回值内容(`Object 类型`)，切入的方法需要有相应的参数(`如果含有JoinPoint参数，必须在此之后`)
 
-#### Around
-
-- [around](## 环绕增强)
+#### [Around](#环绕增强)
 
 ### 实例
 
