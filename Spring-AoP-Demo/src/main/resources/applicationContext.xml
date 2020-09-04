@@ -11,6 +11,7 @@
         http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
 
     <context:component-scan base-package="com.yang" />
+    <aop:aspectj-autoproxy />
 
     <aop:config>
         <aop:pointcut id="point" expression="execution(* com.yang.test.Demo.*(..))"/>

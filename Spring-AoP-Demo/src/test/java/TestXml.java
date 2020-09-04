@@ -10,7 +10,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * Created by MacBook Air on 2020/09/01.
  * Copyright © 2020 LiYang. All rights reserved.
  */
-public class Test {
+public class TestXml {
     public static void main(String[] args) {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
         Demo demo = ((Demo) applicationContext.getBean("demo"));
