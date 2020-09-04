@@ -4,6 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <!-- 这里写配置内容 -->
+
     <environments default="mysql">
         <environment id="mysql">
 <!--            事务类型-->

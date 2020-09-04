@@ -8,7 +8,7 @@
     </settings>
 
     <typeAliases>
-        <!-- 指定一个包名，MyBatis会在包名下搜索需要的JavaBean-->
+        <!-- 指定一个包名，MyBatis 会在包名下搜索需要的 JavaBean-->
         <package name="com.kawyang.entity"/>
     </typeAliases>
 

@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 
 /**
- * @author LiYang
+ * @author LiY
  * 持久层
  */
 public interface IUserDao {

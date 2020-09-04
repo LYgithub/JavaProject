@@ -27,7 +27,6 @@ import java.util.UUID;
 public class JDBCTest_Spring {
 
 
-
     @Autowired
     DepartmentMapper departmentMapper;
     

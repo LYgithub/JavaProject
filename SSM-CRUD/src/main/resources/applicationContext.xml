@@ -21,10 +21,13 @@
     <context:component-scan base-package="com.kawyang" >
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
+
+
     <!--    引入外部文件-->
     <context:property-placeholder location="classpath:dbconfig.properties"/>
-    <!--  Spring 的配置文件  -->
 
+
+    <!--  Spring 的配置文件  -->
 
     <!--✅  数据源、事务控制...  -->
     <bean  id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
@@ -54,7 +57,7 @@
         <!-- 控制数据源,数据源的开启和关闭 -->
         <property name="dataSource" ref="dataSource" />
     </bean>
-
+    <!--  面向切面  -->
     <aop:config>
         <aop:pointcut id="txPoint" expression="execution( * com.kawyang.service..*(..))"/>
         <!-- 配置事务增强 -->

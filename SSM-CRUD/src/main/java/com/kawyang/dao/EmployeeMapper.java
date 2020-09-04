@@ -1,6 +1,5 @@
 package com.kawyang.dao;
 
-import com.kawyang.bean.Department;
 import com.kawyang.bean.DepartmentExample;
 import com.kawyang.bean.Employee;
 import com.kawyang.bean.EmployeeExample;
