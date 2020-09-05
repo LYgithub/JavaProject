@@ -9,7 +9,7 @@
     <context:component-scan base-package="com.yang" />
     <context:property-placeholder location="classpath:dbconfig.properties" />
     <context:annotation-config />
-
+    <aop:aspectj-autoproxy />
 
     <!-- 配置数据源信息  -->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
@@ -57,23 +57,33 @@
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <!-- 控制数据源,数据源的开启和关闭 -->
         <property name="dataSource" ref="dataSource" />
+        <property name="rollbackOnCommitFailure" value="false" />
     </bean>
 
     <!-- 如何切入 ，transaction-manager 进行关联-->
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
-            <!-- 切入点的所有方法都是事务方法-->
-            <tx:method name="*"/>
-            <!-- 调优-->
-            <tx:method name="find*" read-only="true"/>
+            <tx:method name="get*" read-only="true" />
+            <tx:method name="query*" read-only="true" />
+            <tx:method name="find*" read-only="true" />
+            <tx:method name="load*" read-only="true" />
+            <tx:method name="select*" read-only="true" />
+            <!--  全部错误回滚  -->
+            <tx:method name="*" rollback-for="Exception" />
         </tx:attributes>
     </tx:advice>
 
     <!--  面向切面  -->
     <aop:config>
         <aop:pointcut id="txPoint" expression="execution( * com.yang.service..*(..))"/>
+        <aop:pointcut id="updatePoint" expression="execution(* com.yang.service.StudentService.update(..)) "/>
         <!-- 配置事务增强 -->
         <aop:advisor  advice-ref="txAdvice" pointcut-ref="txPoint"/>
+        <!--<aop:aspect ref="myLogger">-->
+        <!--    <aop:around method="aroundMethod" pointcut-ref="updatePoint" />-->
+        <!--</aop:aspect>-->
+
+
     </aop:config>
 
 

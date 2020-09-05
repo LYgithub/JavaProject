@@ -242,12 +242,59 @@ public void main() {
 }
 ```
 
+## 事务管理
+
+> 将 部分操作作为一个整体，要么全部 SQL 执行完成，要么全部不执行，需要将这个是操作作为一个事务进行操作。
+### 使用
+
+- Spring 配置文件
+```xml
+<!--✅ 事务控制配置 -->
+<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <!-- 控制数据源,数据源的开启和关闭 -->
+    <property name="dataSource" ref="dataSource" />
+    <property name="rollbackOnCommitFailure" value="false" />
+</bean>
+
+<!-- 如何切入 ，进行关联-->
+<tx:advice id="txAdvice" transaction-manager="transactionManager">
+    <tx:attributes>
+        <!--  优化查询  -->
+        <tx:method name="find*" read-only="true" />
+        <!--  全部错误回滚 (必须在抛出异常 不能被捕获) -->
+        <tx:method name="*" rollback-for="Exception" />
+    </tx:attributes>
+</tx:advice>
+
+<!--  面向切面  -->
+<aop:config>
+    <!--  切入需要回滚的方法  -->
+    <aop:pointcut id="txPoint" expression="execution( * com.yang.service..*(..))"/>
+    <!--  配置事务增强  -->
+    <aop:advisor  advice-ref="txAdvice" pointcut-ref="txPoint"/>
+</aop:config>
+```
+### 事务不回顾情况
+
+> 默认情况下，如果在事务中抛出了`未检查异常`（继承自 RuntimeException 的异常）或者 Error，则 Spring 将回滚事务；除此之外，Spring 不会回滚事务。
+ 
+> 如果在事务中抛出其他类型的异常，并期望 Spring 能够回滚事务，可以`指定 rollbackFor`。例：`@Transactional(propagation= Propagation.REQUIRED,rollbackFor= MyException.class)`
+
+> 通过分析 Spring 源码可以知道，若在目标方法中抛出的异常是 `rollbackFor` 指定的异常的子类，事务同样会回滚。
+
+
+
 # 参考内容
+
+
 
 - [Mybatis MapperScannerConfigurer 自动扫描 将Mapper接口生成代理注入到Spring](https://blog.csdn.net/AD921012/article/details/50051707)  
 - [Spring中IoC容器的注入方式](https://www.cnblogs.com/dmir/p/4876125.html)  
 - [spring注解@service("service")括号中的service有什么用](https://blog.csdn.net/weixin_42476601/article/details/86137375)
+- [透彻的掌握 Spring 中 @transactional 的使用](https://developer.ibm.com/zh/articles/j-master-spring-transactional-use/)
 
 [^1]:[<context:component-scan>详解](https://www.cnblogs.com/fightingcoding/p/component-scan.html)
-
-
+  
+[^2]:[DataSourceTransactionManager](https://blog.csdn.net/xinzhiyishi/article/details/83540909)
+[^3]:[@Transactional事务出现异常不回滚的处理](https://blog.csdn.net/sinat_32023305/article/details/84105837)
+[^4]:[Spring事务管理之回滚异常rollback-for](https://blog.csdn.net/jylinxmu/article/details/80826989)
