@@ -1,7 +1,6 @@
 package com.kawyang.bean;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**

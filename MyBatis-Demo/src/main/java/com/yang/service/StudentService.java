@@ -1,9 +1,12 @@
 package com.yang.service;
 
-import com.yang.dao.IStudentDao;
+import com.yang.dao.StudentDao;
 import com.yang.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author LiYang
@@ -17,9 +20,13 @@ import org.springframework.stereotype.Service;
 public class StudentService {
 
     @Autowired
-    IStudentDao studentDao ;
+    private StudentDao studentDao ;
 
     public Student findById(int id){
         return studentDao.findById(id);
+    }
+
+    public List<Student> findAll(){
+        return studentDao.findAll();
     }
 }

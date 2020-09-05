@@ -11,33 +11,48 @@
     <context:annotation-config />
 
 
+    <!-- 配置数据源信息  -->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="jdbcUrl" value="${jdbc.url}"/>
         <property name="user" value="${jdbc.user}" />
         <property name="password" value="${jdbc.password}" />
         <property name="driverClass" value="${jdbc.driver}" />
+        <property name="maxPoolSize" value="10" />
+        <property name="minPoolSize" value="5" />
+        <property name="loginTimeout" value="1000" />
     </bean>
 
-    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean" >
-        <property name="configLocation" value="classpath:mybatis-config.xml" />
+    <!-- 创建  SqlSessionFactory 工厂  -->
+    <!-- 工厂的配置 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" >
+
+        <!-- 加载配置文件   -->
+        <property name="configLocation" value="classpath:config.xml" />
+        <!-- 设置数据源信息 -->
         <property name="dataSource" ref="dataSource" />
-        <property name="mapperLocations" value="classpath:com/yang/mapper/*.xml" />
+        <!-- 配置Mapper位置 -->
+        <property name="mapperLocations" >
+            <list>
+                <value>classpath:com/yang/mapper/StudentMapper.xml</value>
+            </list>
+        </property>
     </bean>
 
-    <!-- 将 Dao 接口加入到 IoC 容器中  -->
+    <!-- 使用包扫描创建代理对象，包下面所有Mapper接口统一创建代理对象 使用桥梁包下面 ： org.mybatis.spring.mapper.MapperScannerConfigurer
+            可以包扫描创建所有映射接口的代理对象 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.yang.dao" />
-    </bean>
+        <!-- 配置SqlSessionFactoryBean的名称 -->
+        <property name="basePackage" value="com.yang.dao"/>
+        <!-- 可选，如果不写，Spring启动时候。容器中。自动会按照类型去把SqlSessionFactory对象注入进来 -->
+        <!-- <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/> -->
 
-    <bean id="StudentMapper" class="org.mybatis.spring.mapper.MapperFactoryBean" >
-        <property name="mapperInterface" value="com.yang.dao.IStudentDao" />
-        <property name="sqlSessionFactory" ref="sqlSession" />
     </bean>
 
     <!--✅ 事务控制配置 -->
-    <!--<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
-    <!--    &lt;!&ndash; 控制数据源,数据源的开启和关闭 &ndash;&gt;-->
-    <!--    <property name="dataSource" ref="dataSource" />-->
-    <!--</bean>-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!-- 控制数据源,数据源的开启和关闭 -->
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
 
 </beans>

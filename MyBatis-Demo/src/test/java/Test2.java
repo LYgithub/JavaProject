@@ -1,4 +1,4 @@
-import com.yang.dao.IStudentDao;
+import com.yang.dao.StudentDao;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
@@ -18,7 +18,7 @@ public class Test2 {
         SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
         SqlSessionFactory build = builder.build(in);
         SqlSession sqlSession = build.openSession();
-        IStudentDao mapper = sqlSession.getMapper(IStudentDao.class);
+        StudentDao mapper = sqlSession.getMapper(StudentDao.class);
         System.out.println(mapper.findById(1).toString());
     }
 }

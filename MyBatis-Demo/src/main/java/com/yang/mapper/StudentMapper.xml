@@ -2,8 +2,14 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yang.dao.IStudentDao">
-    <select id="findById" parameterType="int" resultType="com.yang.entity.Student">
+<mapper namespace="com.yang.dao.StudentDao">
+    <select id="findById" parameterType="int" resultMap="student">
         select * from student where id=#{id}
     </select>
+
+    <resultMap id="student" type="com.yang.entity.Student">
+        <id property="id" column="id" />
+        <result property="name" column="name" />
+        <result property="cid" column="cid" />
+    </resultMap>
 </mapper>
