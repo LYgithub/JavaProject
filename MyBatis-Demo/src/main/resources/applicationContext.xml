@@ -45,14 +45,37 @@
         <property name="basePackage" value="com.yang.dao"/>
         <!-- 可选，如果不写，Spring启动时候。容器中。自动会按照类型去把SqlSessionFactory对象注入进来 -->
         <!-- <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/> -->
-
     </bean>
+
+    <!--
+        通过创建事务管理，将某事务的 多条 SQL语句 集中运行，
+        只要一条SQL 语句不能完成，事务就不会完成，
+        已经运行的 SQL 会回滚到之前。
+        -->
 
     <!--✅ 事务控制配置 -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <!-- 控制数据源,数据源的开启和关闭 -->
         <property name="dataSource" ref="dataSource" />
     </bean>
+
+    <!-- 如何切入 ，transaction-manager 进行关联-->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <!-- 切入点的所有方法都是事务方法-->
+            <tx:method name="*"/>
+            <!-- 调优-->
+            <tx:method name="find*" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!--  面向切面  -->
+    <aop:config>
+        <aop:pointcut id="txPoint" expression="execution( * com.yang.service..*(..))"/>
+        <!-- 配置事务增强 -->
+        <aop:advisor  advice-ref="txAdvice" pointcut-ref="txPoint"/>
+    </aop:config>
+
 
 
 </beans>
