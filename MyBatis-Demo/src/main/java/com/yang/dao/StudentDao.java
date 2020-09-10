@@ -31,6 +31,4 @@ public interface StudentDao {
 
     @Update("update student set name=#{name} where id=#{id}")
     int update(Student student);
-
-
 }

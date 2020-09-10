@@ -10,11 +10,11 @@
 InputStream in = Test2.class.getClassLoader().getResourceAsStream("mybatis-config.xml");
 // 创建 工厂 Builder对象
 SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
-// 使用配置文件创建工厂
+// 使用配置文件创建工厂 (缓存 -- 二🐔缓存 -- SqlSessionFactory🐔缓存)
 SqlSessionFactory build = builder.build(in);
 // 使用工厂 创建 Session 会话对象 (缓存-- 一🐔缓存 -- Session🐔缓存)
 SqlSession sqlSession = build.openSession();
-// 获取 Mapper 对象 (缓存 -- 二🐔缓存 -- Mapper🐔缓存)
+// 获取 Mapper 对象 
 StudentDao mapper = sqlSession.getMapper(StudentDao.class);
 System.out.println(mapper.findById(1).toString());
 ```
