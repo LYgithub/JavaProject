@@ -13,11 +13,13 @@ public class Single {
         System.out.println("Single 创建！");
     }
 
+
     /**
      * 私有静态对象
      */
     private static Single single = new Single();
 
+    
     /**
      * 使用对象
       * @return 静态类对象

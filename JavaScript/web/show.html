@@ -1,0 +1,206 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="static/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <script href="static/bootstrap-3.3.7-dist/js/bootstrap.min.js" ></script>
+    <link href="static/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .red{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" method="post" action="/check"  class="col-lg-3">
+        <input type="text" placeholder="提示信息" class="form-control"><br>
+        multiple 可以选择多个文件<input type="file" class="btn-primary" multiple><br/>
+        数据验证<input type="text" pattern="[A-Za-z]{2}" title="请输入两个英文字符" placeholder="两个英文字符" class="form-control">
+        <input type="submit" value="submit" class="btn btn-default">
+
+        <input id="lefile" type="file" style="display:none">
+        <div class="input-append">
+            <input id="photoCover" class="input-large" type="text" style="height:30px;" placeholder="文件上传失败⚠️">
+            <a class="btn btn-primary" οnclick="$('input[id=lefile]').click();">Browse</a>
+        </div>
+
+    </form>
+
+    <hr/>
+    <h1>异步请求 -- Promise</h1>
+    <button type="button" onclick="print()" value="Promise-Text" class="btn btn-default"></button>
+    <script type="text/javascript">
+        function print(){
+            alert("print!");
+            new Promise( function (resolve, reject) {
+
+                    resolve(1);
+                }
+            );
+        }
+        new Promise( function (resolve, reject) {
+            resolve(1);
+            reject("Error");
+        })
+        /*
+         setTimeout(function () {
+                console.log("First!");
+                alert("3m after!")
+            }, 3000
+         );
+         */
+    </script>
+
+    <hr/>
+
+    <h1>函数调用的4中形式</h1>
+    <div class="col-md-12">
+        <script>
+            function method1(a, b) {
+                return a * b;
+            }
+
+            console.log("作为函数调用： method1(1,2) = " + method1(1,2));
+
+            document.write("<h3>当函数没有被自身的对象调用时 this 的值就会变成全局对象。</h3>");
+            console.log("当函数没有被自身的对象调用时 this 的值就会变成全局对象。");
+            console.log("全局变量调用：" + window.method1(1, 2));
+
+            console.log("作为方法调用：")
+            myObject = {
+                "name" : "yang",
+                "age" : 12,
+                "print" : function () {
+                    console.log(this.name + ":" + this.age);
+                }
+            }
+            myObject.print();
+
+
+
+            console.log("使用构造函数调用！");
+
+            function student(name, age){
+                this.name = name;
+                this.age = age;
+            }
+
+            const s = new student("yang", 21);
+            console.log(s.toString());
+
+
+            console.log("作为函数方法调用！");
+            console.log("---------------\n " +
+                "在 JavaScript 中, 函数是对象。JavaScript 函数有它的属性和方法。\n" +
+                "\n" +
+                "call() 和 apply() 是预定义的函数方法。" +
+                "两个方法可用于调用函数，两个方法的第一个参数必须是对象本身。")
+            method_value =  method1.call(method1, 1,2);
+            console.log(method_value);
+            method_value = method1.apply(method1, [2,3]);
+            console.log(method_value);
+        </script>
+    </div>
+    <hr/>
+
+
+    <h1>内嵌函数 -- 闭包函数</h1>
+    <div class="col-md-12">
+        <h1>JS 内嵌函数</h1>
+        <h4>计数器</h4>
+        <script>
+            function method_inner1() {
+                debugger;
+                let count = 0;
+                function up() {
+                    count += 1;
+                }
+                up();
+                return count;
+            }
+
+            function method_inner2() {
+                debugger;
+                let count = 0;
+                function up() {
+                    count += 1;
+                }
+                return up;
+            }
+
+            function add() {
+
+                console.log("inner_method1 ==>" + method_inner1);
+                console.log("inner_method1() ==>" + method_inner1());
+                console.log("inner_method2 ==>" + method_inner2);
+                console.log("inner_method2() ==>" + method_inner2());
+                document.getElementById("number").innerHTML = method_inner1();
+                document.getElementById("number").innerHTML = method_inner2();
+            }
+
+        </script>
+        <h5> 每次点击都会<strong class="red">重新运行</strong>函数，count 会重新变为 0 </h5>
+        <button class="btn btn-default" value="add" onclick="add()">
+            <span id="number">0</span>
+            <span id="number2" >0</span>
+        </button>
+
+        <hr/>
+
+        <h1>闭包函数</h1>
+        <h5>
+            闭包是一种保护私有变量的机制，在函数执行时形成私有的作用域，保护里面的私有变量不受外界干扰。<br>
+
+            直观的说就是形成一个不销毁的栈环境。</h5>
+        <h4>计数器</h4>
+        <script>
+            let x = (function method2() {
+                let number = 0;
+                return function () {
+                    return number += 1;
+                }
+            })();
+
+
+            let x2 = (function method2() {
+                let number = 0;
+                return () => number += 1;
+
+            })();
+
+            function add2() {
+                /// x & x2  返回的是方法， x 为方法的字符串， x() 会调用返回的方法。
+                document.getElementById("button_n_2").innerHTML = x();
+                document.getElementById("button_n_3").innerHTML = x2();
+            }
+
+
+        </script>
+        <button class="btn btn-default" value="add" onclick="add2()">
+            <span id="button_n_2">0</span>
+            <span id="button_n_3">0</span>
+        </button>
+
+        <h1>自调函数</h1>
+        <script>
+            debugger;
+            let self_run = (function () {
+                let count = 0;
+                console.log("自调函数！");
+                return count;
+            })();
+
+            function self_run_click() {
+                debugger;
+                /// self_run 返回的 是 count 数值
+                console.log(self_run);
+            }
+        </script>
+        <button onclick="self_run_click()">自调函数</button>
+    </div>
+</body>
+</html>

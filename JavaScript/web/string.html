@@ -1,0 +1,174 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- rel stylesheet 文档外部引用样式 -->
+    <link href="static/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <script href="static/bootstrap-3.3.7-dist/js/bootstrap.min.js" ></script>
+    <!--<link href="static/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <title>Document</title>
+    <script>
+        const s = new String("ABCDEfghi");
+        document.write("<h1>s.toLocaleLowerCase() ==>" + s.toLocaleLowerCase() +"<br>");
+        document.write("s.toLocaleUpperCase() ==>" + s.toLocaleUpperCase() +"<br>");
+        document.write("s.substring(1,5) ==>" + s.substring(1,5) +"<br>");
+        document.write("s.substr(1,5) ==>"+s.substr(1,5) +"<br>");
+        document.write("s.split() ==>" + s.split("f") +"</h1>");
+
+        const h = new Date();
+        const time = h.getHours();
+        console.log(time);
+        if(time <10){
+            console.log("morning!");
+        }else if(time >= 10 && time <= 15){
+            console.log("afternoon!");
+        }else{
+            console.log("night!");
+        }
+        console.log("isDate ==>" + isDate(h));
+
+        function isDate(myDate) {
+            return myDate.constructor.toString().indexOf("Date") > -1;
+        }
+
+
+    </script>
+
+</head>
+<body>
+    <hr/>
+    <form id="form1" action="check" autocomplete="on" method="post" class="col-lg-3">
+        <div id="div1" class="form-group">
+            <label for="username">UserName</label>
+            <input type="text" name="username" class="form-control"
+                   id="username" placeholder="username" required="required" onchange="submit_form()">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">PassWord</label>
+            <input type="password" class="form-control"
+                   id="exampleInputPassword1" placeholder="Password"
+                   required="required" autofocus>
+        </div>
+        <button id="submit_button" type="submit" class="btn btn-default" onclick="submit_form()" >Submit
+            <span id="subioc" class="glyphicon glyphicon-apple"></span>
+        </button>
+
+        <br/>
+        <h1 id="check_result"></h1>
+    </form>
+    <script>
+        function CheckNull() {
+            const value = document.forms["form1"]["form-group"]["username"].value;
+            alert(value)
+            console.log(value);
+        }
+        function submit_form() {
+            const value = document.getElementById("username").value;
+            // alert(value);
+            if(!isNaN(value) && value > 0 && value <10){
+                document.getElementById("check_result").innerText = "success";
+                document.getElementById("check_result").setAttribute("value","success");
+                document.getElementById("subioc").setAttribute("class", "glyphicon glyphicon-ok");
+                document.getElementById("submit_button").setAttribute("class","btn btn-success");
+
+            }else{
+                document.getElementById("subioc").setAttribute("class", "glyphicon glyphicon-remove");
+                document.getElementById("submit_button").setAttribute("class","btn btn-danger");
+            }
+        }
+    </script>
+
+    <input type="text" list="choose" class="col-xs-6 col-md-4 form-control" name="choose" form="form1">
+        <datalist id="choose" class="dropdown-menu">
+            <option value="test1">选项1</option>
+            <option value="test2">选项2</option>
+            <option value="test3">选项3</option>
+            <option value="test4">选项4</option>
+        </datalist>
+
+    <hr/>
+    <form id="form2" class="col-lg-3" action="upload" method="post" enctype="multipart/form-data">
+        文件：<input type="file" name="file" class="btn btn-default">
+        <button type="submit" value="上传" class="btn btn-default">上传
+            <span class="glyphicon glyphicon-send"></span>
+        </button>
+    </form>
+
+    <hr/>
+
+    <h1> form onsubmit="return function();" 如果返回值为 true 数据提交，\n 返回值为 false 不提交</h1>
+    <form action="/check" method="get" onsubmit="return check_email();">
+
+        <div class="form-group">
+            number:<input id="number" placeholder="number" type="number" class="form-control col-md-3">
+        </div>
+        <div class="col-md-1">
+            number:<input id="number2" min="10" max="30" placeholder="min:10, max:30" type="number"  class="form-control"><br/>
+        </div>
+        <button id="check_btn" value="验证" type="button" class="btn btn-default" onclick="error_message()">
+            验证
+            <span id="check_span" aria-hidden="true"></span>
+        </button>
+        <h4 id="error_message"></h4>
+        <input class="form-control" type="submit" value="submit">
+    </form>
+    <script>
+        function check_email() {
+            const value = document.getElementById("number").value;
+            debugger;
+            if(value > 10) return true;
+            else return false;
+        }
+
+        function error_message() {
+            const elementById = document.getElementById("number2");
+            // debugger;
+            let text;
+            if(elementById.value === "" || elementById.checkValidity() === false){
+                text = "error:";
+                if (elementById.value === ""){
+                    text += "输入数字！";
+                }else {
+                    if(elementById.validity.rangeOverflow){
+                        text += "太大了";
+                    }else if(elementById.validity.rangeUnderflow){
+                        text += "太小了";
+                    }else {
+                        text += "error";
+                    }
+                }
+                document.getElementById("check_btn").setAttribute("class", "btn btn-danger");
+                document.getElementById("check_span").setAttribute("class", "glyphicon glyphicon-remove");
+            }else {
+                text = "success";
+                document.getElementById("check_span").setAttribute("class", "glyphicon glyphicon-ok");
+                document.getElementById("check_btn").setAttribute("class", "btn btn-success");
+            }
+
+            document.getElementById("error_message").innerText = text;
+        }
+    </script>
+
+    <hr/>
+    <h1> JSON.parse 将字符串 转换为 JSON 对象</h1>
+    <script>
+        const s = '{ \
+            "1": 1,\
+            "2": 2,\
+            "3": {\
+                "4": 4, \
+                "5": {\
+                    "6": 6\
+                }\
+            }\
+        }'
+        JSON.parse(s, function (k,v) {
+            alert(s + "\n" + k+"==>"+ v);
+        })
+    </script>
+</body>
+</html>

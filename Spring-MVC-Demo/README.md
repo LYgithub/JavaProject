@@ -2,7 +2,7 @@
 
 > Spring-MVC 是视图层框架
 
-### 
+### 面向切面编程
 ## AoP
 > - Aspect Oriented Programming  ---- 面向切面编程
 > - 在不改变原代码的基础上，对程序进行拓展，增强方法内容。

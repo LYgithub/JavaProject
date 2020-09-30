@@ -1,0 +1,140 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript</title>
+    <!-- rel stylesheet 文档外部引用样式 -->
+    <link href="static/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <script href="static/bootstrap-3.3.7-dist/js/bootstrap.min.js" ></script>
+    <link href="static/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+    <!--  不能加type="javascript"  -->
+    <script type="text/javascript">
+    <!--  修改元素属性   -->
+        function changeImg() {
+            const image1 = document.getElementById("img1");
+            if(image1.src.match("bulboff")){
+            // if(document.getElementById("img1").getAttribute("src") === "static/img/pic_bulboff.gif"){
+                image1.setAttribute("src","static/img/pic_bulbon.gif");
+            }else {
+                image1.setAttribute("src","static/img/pic_bulboff.gif");
+            }
+        }
+
+        function showDate() {
+            document.getElementById("demo").innerText += Date();
+            document.getElementById("demo1").innerHTML += Date();
+        }
+
+    </script>
+
+    <!-- 添加 type 错误  text/javascript
+     <script type="javascript">
+        function showDate1() {
+            document.getElementById("demo").innerText += Date();
+        }
+    </script>
+    -->
+</head>
+<body>
+
+    <div class="center-block">
+        <h1 class="text-left" id="demo">时间：</h1><br>
+        <h1 class="text-left" id="demo1">时间：</h1><br>
+        <button class="btn btn-default" onclick="showDate()" >显示时间</button>
+        <button id="button_clear" class="btn btn-default">清空时间</button>
+        <div>
+        </div>
+    </div>
+
+
+    <div>
+        <img id="img1" src="static/img/pic_bulboff.gif" onclick="changeImg()"
+             style="width: 100px;height: 180px" onmouseover="changeMouse('pointer')" onmouseout="changeMouse('default')"><br>
+        <script>
+            document.write("<p3 id='lightText'>点击灯泡切换状态！</p3>")
+        </script>
+
+    </div>
+    <script>
+
+        document.getElementById("button_clear").onclick = function () {
+            document.getElementById("demo").innerText = "时间：";
+            alert(document.getElementsByClassName("btn"));
+        }
+
+        document.getElementById("lightText").style.color = "blue";
+    </script>
+    <!--  输入验证   -->
+    <div>
+        <input type="text" id="isNumber"><button class="btn btn-danger" id="button_is_number" onclick="checkIsNumber()">提交</button>
+
+        <script>
+            function checkIsNumber() {
+                const x = document.getElementById("isNumber").value;
+                // "" 不能与 null
+                /**
+                 *  undefined 和 null
+                 *  undefined 是声明后没有赋值, undefined 类型
+                 *  null 是用于清空变量， Object 类型
+                 */
+                if(x === "" || isNaN(x)){
+                    alert("不是数字！");
+                    window.alert("is not number!");
+                }
+            }
+        </script>
+    </div>
+
+    <hr>
+    <div>
+        <h1>显示数据！</h1>
+        <br>
+        <button class="btn btn-group" onclick="alert('message')">弹框</button>
+        <button class="btn btn-group" onclick="console.log('message')">后台</button>
+        <button class="btn btn-group" onclick="document.write('<br/>message')">页面</button>
+        <script>
+            document.write("<p1>document.write 写在页面中</p1>")
+        </script>
+    </div>
+    <br>
+    <h1>变量</h1>
+    <div>
+        <script>
+            document.write("<h3>请查看后台输出！</h3>");
+            // const 不可修改
+            let number = 1.23;
+            const object = {
+                firstName: "Kaw",
+                lastName: "Yang",
+                // 对象方法
+                print : function () {
+                    return this.firstName + ":" + this.lastName;
+                }
+            };
+            console.log(object+ "==>" + object.firstName + object["lastName"] + "==>" + number);
+            console.log("方法不加() ==>" + object.print);
+            console.log("方法加() ==>" + object.print());
+            const list = ["1221", 12,object]
+            switch (1) {
+                case 1:console.log(1);break;
+                case 2:console.log(2);break;
+            }
+            try {
+                number = 12;
+            }catch (e) {
+                console.log(e);
+            }
+
+            console.log(number);
+        </script>
+
+    </div>
+    <h1>事件</h1>
+    <img src="static/img/pic_bulboff.gif" width="100px"
+         height="180px" onmouseover="changeMouse('pointer')" onmouseout="changeMouse('default')">
+    <script>
+        function changeMouse(type) {
+            document.body.style.cursor = 'url() 12 12,'+type;
+        }
+    </script>
+</body>
+</html>

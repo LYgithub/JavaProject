@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: jdbc:mysql:http://loaclhost:3306/JavaWeb
+    data-username: root
+    password: liyangLY

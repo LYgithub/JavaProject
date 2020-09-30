@@ -42,8 +42,6 @@ public class DownloadServlet extends HttpServlet {
 
         outputStream.close();
         fileInputStream.close();
-
-
     }
 
     @Override

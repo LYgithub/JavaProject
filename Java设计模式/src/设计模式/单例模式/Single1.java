@@ -26,4 +26,20 @@ public class Single1 {
         }
         return single1;
     }
+
+
+    /**
+     * 线程安全的单例设计模式 ， 懒汉式
+     * @return
+     */
+    public static Single1 getInstance1(){
+        if(single1 == null){
+            synchronized (single1){
+                if(single1 == null){
+                    single1 = new Single1();
+                }
+            }
+        }
+        return single1;
+    }
 }

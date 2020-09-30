@@ -1,0 +1,171 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- rel stylesheet 文档外部引用样式 -->
+    <link href="static/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <script href="static/bootstrap-3.3.7-dist/js/bootstrap.min.js" ></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="col-lg-12">
+        <h1>点击事件</h1>
+        <div onmouseout="changeColor(this, 1)"
+             onmouseover="changeColor(this,2)"
+             onmousedown="changeColor(this,3)"
+             onmouseup="changeColor(this,4)"
+             onclick="alert('click')"
+             style="background-color: #2aabd2;width: 300px; height: 200px">
+            <h1 id="message"></h1>
+            <script>
+                function changeColor(id, style){
+                    switch (style) {
+                        case 1:
+                            document.getElementById("message").innerHTML = "onmouseout";
+                            id.style.backgroundColor = "red";
+                            break;
+                        case 2:
+                            document.getElementById("message").innerHTML = "onmouseover";
+                            id.style.backgroundColor = "blue";
+                            break;
+                        case 3:
+                            document.getElementById("message").innerHTML = "onmousedown";
+                            id.style.backgroundColor = "blue";
+                            break;
+                        case 4:
+                            document.getElementById("message").innerHTML = "onmouseup";
+                            id.style.backgroundColor = "blue";
+                            break;
+                    }
+                }
+            </script>
+        </div>
+    </div>
+    <div class="col-lg-12" id="div-btn">
+        <h1> addEventListener</h1>
+        <button class="btn btn-default" id="btton1"><p id="p1">点击</p></button>
+        <script>
+            /// tag = true 从不具体的元素之心到具体的元素， 从外层向内执行
+            /// tag = false 从内向外执行， 冒泡执行 内部元素的事件会先被触发，然后再触发外部元素
+            /// https://www.cnblogs.com/christineqing/p/7607113.html
+            let tag = false;
+            document.getElementById("btton1").addEventListener("click", function () {
+                alert("Hello World!");
+            }, tag);
+
+            document.getElementById("btton1").addEventListener("click", function () {
+                alert("你好！");
+            }, tag);
+
+            document.getElementById("p1").addEventListener("click", function () {
+                alert("p1点击！");
+            }, tag);
+            document.getElementById("div-btn").addEventListener("click", function () {
+                alert("div 点击！");
+            }, tag);
+        </script>
+    </div>
+    <div class="col-lg-12">
+
+        <hr/>
+        <h1>元素查找 -- 标签</h1>
+        <div class="grid_c1 fs_inner">
+            <div class="fs_col1" id="reset">
+                <div id="J_cate" class="cate J_cate cate18" role="navigation" aria-label="左侧导航">
+                    <ul class="JS_navCtn cate_menu">
+                        <li class="cate_menu_item" data-index="1" clstag="h|keycount|head|category_01a">
+                            <a target="_blank" class="cate_menu_lk" href="//jiadian.jd.com">家用电器</a>
+                        </li>
+                        <li class="cate_menu_item" data-index="2" clstag="h|keycount|head|category_02a">
+                            <a target="_blank" class="cate_menu_lk" href="//shouji.jd.com/">手机</a>
+                            <span class="cate_menu_line">/</span>
+                            <a target="_blank" class="cate_menu_lk" href="//wt.jd.com">运营商</a>
+                            <span class="cate_menu_line">/</span>
+                            <a target="_blank" class="cate_menu_lk" href="//shuma.jd.com/">数码</a>
+                        </li>
+                        <li class="cate_menu_item" data-index="3" clstag="h|keycount|head|category_03a">
+                            <a target="_blank" class="cate_menu_lk" href="//diannao.jd.com/">电脑</a>
+                            <span class="cate_menu_line">/</span>
+                            <a target="_blank" class="cate_menu_lk" href="//bg.jd.com">办公</a>
+                        </li>
+                        <li class="cate_menu_item" data-index="4" clstag="h|keycount|head|category_04a">
+                            <a target="_blank" class="cate_menu_lk" href="//channel.jd.com/home.html">家居</a>
+                            <span class="cate_menu_line">/</span>
+                            <a target="_blank" class="cate_menu_lk" href="//channel.jd.com/furniture.html">家具</a>
+                            <span class="cate_menu_line">/</span>
+                            <a target="_blank" class="cate_menu_lk" href="//jzjc.jd.com/">家装</a>
+                            <span class="cate_menu_line">/</span>
+                            <a target="_blank" class="cate_menu_lk" href="//channel.jd.com/kitchenware.html">厨具</a>
+                        </li>
+                        <li class="cate_menu_item" data-index="5" clstag="h|keycount|head|category_05a">
+                            <a target="_blank" class="cate_menu_lk" href="//channel.jd.com/1315-1342.html">男装</a>
+                            <span class="cate_menu_line">/</span>
+                            <a target="_blank" class="cate_menu_lk" href="//channel.jd.com/1315-1343.html">女装</a>
+                            <span class="cate_menu_line">/</span>
+                            <a target="_blank" class="cate_menu_lk" href="//phat.jd.com/10-156.html">童装</a>
+                            <span class="cate_menu_line">/</span>
+                            <a target="_blank" class="cate_menu_lk" href="//channel.jd.com/1315-1345.html">内衣</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            /// my collection
+            console.log("----  collection -----");
+            let myCollection = document.getElementsByTagName("li");
+            alert(myCollection.length);
+            for (let i = 0; i < myCollection.length; i++) {
+                console.log(myCollection[i]);
+            }
+            let elementsByTagName = document.getElementById("reset").getElementsByTagName("li");
+            alert(elementsByTagName.length);
+
+
+            /// node list
+            console.log("----  node list -----");
+            let collection = document.querySelectorAll("a");
+            for (let i = 0; i < collection.length; i++) {
+                console.log(collection[i]);
+                console.log(collection[i].href);
+            }
+        </script>
+    </div>
+    <div class="col-md-12">
+        <h1>原型对象</h1>
+        <h4>所有的js对象都是从一个 prototype 对象继承而来的 </h4>
+        <script>
+            function Person(name, age) {
+                this.name = name;
+                this.age = age;
+            }
+
+            let person = new Person("yang", 12);
+            console.log(person.name +":" + person.age);
+
+            Person.nationality = "China";
+            console.log(person.nationality); /// undefined
+
+            Person.prototype.nationality = "China";
+            console.log(person.nationality); /// China
+
+            let person1 = new Person("KawYang", 32);
+            console.log(person1.name + ":" + person1.nationality);
+
+            Person.prototype.print = function () {
+                return this.name + " === >" +
+                this.age + " === >" +
+                this.nationality;
+            }
+
+            console.log(person1.print());
+
+        </script>
+    </div>
+
+</body>
+</html>
