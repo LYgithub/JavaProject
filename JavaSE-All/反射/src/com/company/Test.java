@@ -26,4 +26,9 @@ public class Test {
     public void print(){
         System.out.println(this.id + "==>" + this.name);
     }
+
+    private String selfPrint(String name){
+        System.out.println("selfPrint ==> " + name);
+        return name;
+    }
 }

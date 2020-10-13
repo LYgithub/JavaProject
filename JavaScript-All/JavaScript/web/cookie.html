@@ -1,0 +1,46 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- rel stylesheet 文档外部引用样式 -->
+    <link href="static/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <script href="static/bootstrap-3.3.7-dist/js/bootstrap.min.js" ></script>
+    <link href="static/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+    <div class="col-lg-12">
+        <button class="btn btn-default" onclick="clear_cookie()"> clearCookie</button>
+        <script>
+            function clear_cookie() {
+                document.cookie = "name=;"
+            }
+        </script>
+
+        <button class="btn btn-default" onclick = "showCookie()" >ShowCookie</button>
+        <script>
+            function showCookie() {
+                let cookies = document.cookie;
+                let cookieList = cookies.split(";");
+                console.log(cookieList);
+                for (let i =0; i< cookieList.length; i++){
+                    let name_cookie = cookieList[i].trim();
+                    if(name_cookie.indexOf("name") === 0){
+                        let name = name_cookie.substr("name=".length, name_cookie.length);
+                        if(name.length === 0){
+                            break;
+                        }
+                        alert("欢迎回来 " + name);
+                        return;
+                    }
+                }
+                let name = prompt("请输入用户名：");
+                document.cookie = "name=" + name + ";"
+            }
+        </script>
+    </div>
+</body>
+</html>
